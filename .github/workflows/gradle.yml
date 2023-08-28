@@ -3,6 +3,7 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK 8
@@ -11,7 +12,12 @@ jobs:
           java-version: 8
           distribution: 'adopt'
           cache: gradle
-      - name: Build with Gradle
-        run:
-            ./gradlew wrapper --gradle-version=6.1.1
-            ./gradlew build
+
+      - name: Init gradle wrapper
+        run: ./gradlew wrapper --gradle-version=6.1.1
+
+      - name: Change wrapper permissions
+        run: chmod +x ./gradlew
+
+      - name: Build with Gradle wrapper
+        run: ./gradlew build
