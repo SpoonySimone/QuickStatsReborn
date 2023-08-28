@@ -13,6 +13,9 @@ jobs:
           distribution: 'adopt'
           cache: gradle
 
+      - name: Change wrapper permissions
+        run: chmod +x ./gradlew
+        
       - name: Init gradle wrapper
         run: ./gradlew wrapper --gradle-version=6.1.1
 
