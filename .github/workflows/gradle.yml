@@ -24,3 +24,9 @@ jobs:
 
       - name: Build with Gradle wrapper
         run: ./gradlew build
+        
+        - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: QuickStats
+          path: /home/runner/work/QuickStatsReborn/QuickStatsReborn/build/libs
