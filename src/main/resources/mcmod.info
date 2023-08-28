@@ -5,12 +5,12 @@
     "description": "Mod to show stats of other nearby players in hypixel games.",
     "version": "${version}",
     "mcversion": "${mcversion}",
-    "url": "https://github.com/nxtdaydelivery/quickStats",
+    "url": "https://github.com/SpoonySimone/QuickStatsReborn",
     "updateUrl": "",
     "authorList": [
-      "nxtdaydelivery"
+      "SpoonySimone & nxtdaydelivery"
     ],
-    "credits": "nxtdaydelivery, and thanks Wyvest for the help!",
+    "credits": "SpoonySimone, but huge thansk to nxtdaydelivery as this wouldn't have been possible without him.",
     "logoFile": "",
     "screenshots": [],
     "dependencies": []
