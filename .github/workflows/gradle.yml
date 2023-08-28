@@ -12,4 +12,6 @@ jobs:
           distribution: 'adopt'
           cache: gradle
       - name: Build with Gradle
-        run: ./gradlew build
+        run:
+            ./gradlew wrapper --gradle-version=6.1.1
+            ./gradlew build
