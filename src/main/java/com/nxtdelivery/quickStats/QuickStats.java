@@ -42,7 +42,7 @@ import java.io.File;
 @Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION)
 public class QuickStats {
 
-    @Mod.Instance("qSts") // variables and things
+    @Mod.Instance("@ID@") // variables and things
     public static QuickStats instance;
     private static final Minecraft mc = Minecraft.getMinecraft();
     private KeyBinding statsKey;
