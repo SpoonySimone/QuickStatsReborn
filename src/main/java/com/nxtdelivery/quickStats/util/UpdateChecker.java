@@ -12,7 +12,7 @@ public class UpdateChecker {
         try {
             Properties prop = new Properties();
             prop.load(new URL(
-                    "https://raw.githubusercontent.com/nxtdaydelivery/quickStats/master/gradle.properties")
+                    "https://raw.githubusercontent.com/SpoonySimone/QuickStatsReborn/master/gradle.properties")
                     .openStream());
             latestVersion = prop.getProperty("mod_version");
             if (latestVersion.equals("0")) {
