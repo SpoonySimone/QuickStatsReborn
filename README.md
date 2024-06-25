@@ -60,3 +60,9 @@ You can also clone the repository using Git client and compile it yourself
 
 # **Disclaimer**
 This product is not affiliated or endorsed by Hypixel in any way
+
+# **Development**
+## TO-DO
+- Auto-Updater
+- Render the GUI using OneConfig
+- Add more games
