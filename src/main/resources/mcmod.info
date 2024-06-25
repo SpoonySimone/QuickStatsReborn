@@ -4,13 +4,13 @@
     "name": "${name}",
     "description": "Mod to show stats of other nearby players in hypixel games.",
     "version": "${version}",
-    "mcversion": "${mcversion}",
+    "mcversion": "${mcVersionStr}",
     "url": "https://github.com/SpoonySimone/QuickStatsReborn",
     "updateUrl": "",
     "authorList": [
-      "SpoonySimone & nxtdaydelivery"
+      "SpoonySimone"
     ],
-    "credits": "SpoonySimone, but huge thansk to nxtdaydelivery as this wouldn't have been possible without him.",
+    "credits": "SpoonySimone, but huge thanks to nxtdaydelivery for the original mod as this wouldn't have been possible without him.",
     "logoFile": "",
     "screenshots": [],
     "dependencies": []

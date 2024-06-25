@@ -110,7 +110,7 @@ public class GUIStats extends Gui {
                 this.bgColor = new Color(17, 17, 27, 200);
                 this.textColor = new Color(53, 0, 1, 255);
                 break;
-            case 3:         // PINKULU
+            case 3:         // pink
                 this.progColor = new Color(247, 101, 163, 200);
                 this.bgColor = new Color(255, 164, 182, 100);
                 this.textColor = new Color(255, 164, 182, 255);
@@ -126,9 +126,9 @@ public class GUIStats extends Gui {
                 this.textColor = new Color(241, 241, 241, 255);
                 break;
             default:
-                this.progColor = GUIConfig.progColor;
-                this.bgColor = GUIConfig.bgColor;
-                this.textColor = GUIConfig.textColor;
+                this.progColor = GUIConfig.progColor.toJavaColor();
+                this.bgColor = GUIConfig.bgColor.toJavaColor();
+                this.textColor = GUIConfig.textColor.toJavaColor();
 
         }
 
@@ -212,14 +212,14 @@ public class GUIStats extends Gui {
             padY = roundIntWithFloat(top, 1.25f) + 26;
             fullWidth = halfWidth * 2;
             fullHeight = bottom - top;
-            this.bgColor = GUIConfig.bgColor;
-            this.textColor = GUIConfig.textColor;
-            this.progColor = GUIConfig.progColor;
+            this.bgColor = GUIConfig.bgColor.toJavaColor();
+            this.textColor = GUIConfig.textColor.toJavaColor();
+            this.progColor = GUIConfig.progColor.toJavaColor();
         }
         if (GUIConfig.colorPreset == 0) {
-            this.progColor = GUIConfig.progColor;
-            this.bgColor = GUIConfig.bgColor;
-            this.textColor = GUIConfig.textColor;
+            this.progColor = GUIConfig.progColor.toJavaColor();
+            this.bgColor = GUIConfig.bgColor.toJavaColor();
+            this.textColor = GUIConfig.textColor.toJavaColor();
         }
 
 

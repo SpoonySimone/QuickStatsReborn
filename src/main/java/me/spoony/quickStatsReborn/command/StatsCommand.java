@@ -4,7 +4,6 @@ import me.spoony.quickStatsReborn.QuickStats;
 import me.spoony.quickStatsReborn.Reference;
 import me.spoony.quickStatsReborn.gui.GUIConfig;
 import me.spoony.quickStatsReborn.util.*;
-import me.spoony.quickStatsReborn.util.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.command.CommandException;
@@ -56,21 +55,9 @@ public class StatsCommand implements ICommand {
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         try {
             switch (args[0]) {
-                case "configure":
-                case "config":
-                case "cfg":
-                    try {
-                        new TickDelay(() -> mc.displayGuiScreen(GUIConfig.INSTANCE.gui()), 1);
-                    } catch (Exception e) {
-                        if (GUIConfig.debugMode) {
-                            e.printStackTrace();
-                        }
-                    }
-                    break;
                 case "reload":
                     QuickStats.LOGGER.info("Reloading config and version checker...");
                     QuickStats.sendMessages("Reloading!");
-                    GUIConfig.INSTANCE.initialize();
                     QuickStats.updateCheck = UpdateChecker.checkUpdate(Reference.VERSION);
                     AuthChecker.checkAuth(QuickStats.JarFile.getPath());
                     QuickStats.sendMessages("Reloaded! Re-log and check logs for more information.");
@@ -82,11 +69,11 @@ public class StatsCommand implements ICommand {
                     break;
                 case "test":
                     QuickStats.sendMessages("Testing function...");
-                    QuickStats.GuiInst.showGUI("nxtdaydelivery");
+                    QuickStats.GuiInst.showGUI("SpoonySimone");
                     break;
                 case "testEntity":
                     try {
-                        QuickStats.sendMessages("[QuickStats] Testing getEntity function...");
+                        QuickStats.sendMessages("Testing getEntity function...");
                         QuickStats.LOGGER.info(GetEntity.get(0).getName());
                         QuickStats.sendMessages("entity = " + GetEntity.get(0).getName());
                     } catch (Exception e) {
@@ -138,7 +125,7 @@ public class StatsCommand implements ICommand {
             sender.addChatMessage(new ChatComponentText(Reference.COLOR
                     + "[QuickStats] Command menu (mod version " + Reference.VERSION + ")"));
             sender.addChatMessage(new ChatComponentText(Reference.COLOR
-                    + "[QuickStats] Command usage: /quickstats <name>, /quickstats configure, /quickstats reload"));
+                    + "[QuickStats] Command usage: /quickstats <name>, /quickstats reload"));
         }
     }
 

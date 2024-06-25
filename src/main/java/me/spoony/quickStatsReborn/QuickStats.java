@@ -10,7 +10,6 @@ import me.spoony.quickStatsReborn.command.StatsCommand;
 import me.spoony.quickStatsReborn.gui.GUIConfig;
 import me.spoony.quickStatsReborn.gui.GUIStats;
 import me.spoony.quickStatsReborn.util.*;
-import me.spoony.quickStatsReborn.util.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.Entity;
@@ -42,9 +41,9 @@ import java.io.File;
 
 @Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION)
 public class QuickStats {
-
     @Mod.Instance("@ID@") // variables and things
     public static QuickStats instance;
+    public static GUIConfig config;
     private static final Minecraft mc = Minecraft.getMinecraft();
     private KeyBinding statsKey;
     public static final Logger LOGGER = LogManager.getLogger(Reference.NAME);
@@ -61,10 +60,9 @@ public class QuickStats {
 
     @EventHandler()
     public void preInit(FMLPreInitializationEvent event) {
-        LOGGER.info("preloading config...");
+        LOGGER.info("Preloading config...");
         try {
-            GUIConfig.INSTANCE.preload();
-            LOGGER.info("config preload was successful");
+            config = new GUIConfig();
         } catch (Exception e) {
             if (GUIConfig.debugMode) {
                 e.printStackTrace();
@@ -91,8 +89,8 @@ public class QuickStats {
         LocInst = new LocrawUtil();
         GuiInst = new GUIStats();
         locraw = true;
-        LOGGER.debug(instance.toString());        // please stop moaning at me intellij
-        LOGGER.info("Complete! QuickStats loaded successfully.");
+        LOGGER.debug(instance.toString());
+        LOGGER.info("Complete! QuickStatsReborn loaded successfully.");
     }
 
     @SubscribeEvent
@@ -102,8 +100,6 @@ public class QuickStats {
                 if (GUIConfig.key != statsKey.getKeyCode()) {                // will write new key code if the player changed it in settings
                     LOGGER.warn("Key code from config (" + GUIConfig.key + ") differs to key code just used! (" + statsKey.getKeyCode() + ") writing new to config file...");
                     GUIConfig.key = Keyboard.getEventKey();
-                    GUIConfig.INSTANCE.markDirty();
-                    GUIConfig.INSTANCE.writeData();
                 }
                 if (Keyboard.getEventKeyState()) {
                     try {
