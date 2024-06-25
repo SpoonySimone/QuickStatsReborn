@@ -1,7 +1,3 @@
-# Mod development is gonna be paused for a very long while
-I know, i just started this project but due to the recent Hypixel API changes, I need the resources and knowledge to make my own server which comunicates to the Hypixel's API via the mod's production key.
-**Until this gets resolved, the mod development is gonna be paused.**
-
 # Quickstats Reborn
 This mod was archived by nextday, the original owner, on 27th July 2023. After talking to the owner, we agreed that i could continue development.
 **The mod is still being developed**
