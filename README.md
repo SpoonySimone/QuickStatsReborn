@@ -56,7 +56,7 @@ With just the press of a key/command, you can get detailed and informative stats
 
 At the moment, you have to download the mod via [actions](https://github.com/SpoonySimone/QuickStatsReborn/actions). Simply click the latest workflow, download the artifact, unzip it and move the jar file (the one that **doesn't** end with -dev) in your mods folder.
 
-Currently under development, you can clone the repository using Git client and compile it yourself (./gradlew.bat build)
+You can also clone the repository using Git client and compile it yourself
 
 # **Disclaimer**
 This product is not affiliated or endorsed by Hypixel in any way
