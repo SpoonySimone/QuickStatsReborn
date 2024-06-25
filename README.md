@@ -57,3 +57,6 @@ With just the press of a key/command, you can get detailed and informative stats
 # **Downloads** 
 
 Currently under development, you can clone the repository using Git client and compile it yourself (./gradlew.bat build)
+
+# **Disclaimer**
+This product is not affiliated or endorsed by Hypixel in any way
