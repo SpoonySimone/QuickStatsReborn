@@ -18,6 +18,15 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import org.apache.http.HttpHeaders;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.util.EntityUtils;
+import com.google.gson.Gson;
 
 public class ApiRequest extends Thread {
     private static final Minecraft mc = Minecraft.getMinecraft();
@@ -84,12 +93,18 @@ public class ApiRequest extends Thread {
             if (uuid == null) {
                 return;
             }
-            String url = "https://api.hypixel.net/player?key=" + GUIConfig.apiKey + "&uuid=" + uuid;
+            String url = "" + uuid;
             if (GUIConfig.debugMode) {
                 QuickStats.LOGGER.info("Fetching Hypixel data from URL: " + url);
             }
-
-            JsonObject js1 = buildJson(url);
+            CloseableHttpClient httpClient = HttpClients.createDefault();
+            HttpGet apiRequest = new HttpGet(url);
+            apiRequest.setHeader(HttpHeaders.USER_AGENT, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36 Edg/125.0.2535.79");
+            HttpResponse apiResponse = httpClient.execute(apiRequest);
+            HttpEntity entity = apiResponse.getEntity();
+            String jsonApiResponse = EntityUtils.toString(entity);
+        
+            JsonObject js1 = new Gson().fromJson(jsonApiResponse, JsonObject.class);
             boolean success = js1.get("success").getAsBoolean();
             if (success) {
                 if (js1.get("player").isJsonNull()) {
