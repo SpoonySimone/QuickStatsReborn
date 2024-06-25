@@ -86,24 +86,6 @@ public class GUIConfig extends Vigilant {
 
 
     @Property(
-            type = PropertyType.TEXT,
-            name = "API Key",
-            description = "The API key used in the mod. Can be also automatically set by typing in /api new in-game.",
-            category = "General",
-            protectedText = true, subcategory = "API"
-    )
-    public static String apiKey = "none";
-
-    @Property(
-            type = PropertyType.SWITCH,
-            name = "Automatically Get API Key",
-            description = "Automatically get the API Key from /api new.",
-            category = "General", subcategory = "API"
-    )
-    public static boolean autoGetAPI = true;
-
-
-    @Property(
             type = PropertyType.SWITCH,
             name = "Send Update Messages",
             description = "Send update messages on startup if a new version is available.",

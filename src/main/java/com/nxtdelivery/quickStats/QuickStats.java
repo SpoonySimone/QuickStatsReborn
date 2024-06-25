@@ -128,27 +128,6 @@ public class QuickStats {
     @SubscribeEvent
     public void onChatReceive(ClientChatReceivedEvent event) {
         if (onHypixel) {
-            if (GUIConfig.autoGetAPI) {
-                try {
-                    if (event.message.getUnformattedText().contains("Your new API key is")) {
-                        String apiMessage = event.message.getUnformattedText();
-                        String apiKey = apiMessage.substring(20);
-                        LOGGER.info("got API key from message: " + apiKey + ". writing and reloading config...");
-                        GUIConfig.apiKey = apiKey;
-                        GUIConfig.INSTANCE.markDirty();
-                        GUIConfig.INSTANCE.writeData();
-                        new TickDelay(() -> mc.thePlayer.addChatMessage(new ChatComponentText(
-                                Reference.COLOR + "[QuickStats] Grabbed and set your API key. The mod is now ready to use!")),
-                                5);
-                        mc.thePlayer.playSound("minecraft:random.successful_hit", 1.0F, 1.0F);
-                    }
-                } catch (Exception e) {
-                    if (GUIConfig.debugMode) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
             if (GUIConfig.doPartyDetection) {
                 if (QuickStats.locraw) {
                     QuickStats.locraw = false;

@@ -75,12 +75,6 @@ public class StatsCommand implements ICommand {
                     QuickStats.sendMessages("Reloaded! Re-log and check logs for more information.");
                     Minecraft.getMinecraft().thePlayer.playSound("minecraft:random.successful_hit", 1.0F, 1.0F);
                     break;
-                case "api":
-                    GUIConfig.apiKey = args[1];
-                    GUIConfig.INSTANCE.markDirty();
-                    GUIConfig.INSTANCE.writeData();
-                    QuickStats.sendMessages("set your API key as: " + args[1] + ".");
-                    break;
                 case "testLoc":
                     QuickStats.sendMessages("Testing locraw function...");
                     QuickStats.LocInst.send();
@@ -143,7 +137,7 @@ public class StatsCommand implements ICommand {
             sender.addChatMessage(new ChatComponentText(Reference.COLOR
                     + "[QuickStats] Command menu (mod version " + Reference.VERSION + ")"));
             sender.addChatMessage(new ChatComponentText(Reference.COLOR
-                    + "[QuickStats] Command usage: /quickstats <name>, /quickstats configure, /quickstats reload, /quickstats api <api key>"));
+                    + "[QuickStats] Command usage: /quickstats <name>, /quickstats configure, /quickstats reload"));
         }
     }
 

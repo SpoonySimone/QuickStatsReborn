@@ -38,7 +38,6 @@ public class ApiRequest extends Thread {
     public static double exp;
     public boolean noUser = false;
     public boolean generalError = false;
-    public boolean noAPI = false;
     public boolean timeOut = false;
     public boolean slowDown = false;
     public boolean nick = false;
@@ -158,24 +157,18 @@ public class ApiRequest extends Thread {
             }
 
         } catch (IOException e) {
-            if (GUIConfig.apiKey.equals("none")) {
+            if (e.getMessage().contains("504 for URL")) {
                 mc.thePlayer.addChatMessage(new ChatComponentText(Reference.COLOR
-                        + "[QuickStats] You haven't set an API key yet! Type /api new to get one, and the mod should grab it."));
-                noAPI = true;
+                        + "[QuickStats] failed to contact the Hypixel API. Request timed out!"));
+                timeOut = true;
             } else {
-                if (e.getMessage().contains("504 for URL")) {
-                    mc.thePlayer.addChatMessage(new ChatComponentText(Reference.COLOR
-                            + "[QuickStats] failed to contact the Hypixel API. Request timed out!"));
-                    timeOut = true;
-                } else if (e.getMessage().contains("429 for URL")) {
+                if (e.getMessage().contains("429 for URL")) {
                     mc.thePlayer.addChatMessage(new ChatComponentText(Reference.COLOR
                             + "[QuickStats] the Hypixel API didn't respond as you are sending requests too fast! Slow down!"));
                     slowDown = true;
                 } else {
                     mc.thePlayer.addChatMessage(new ChatComponentText(Reference.COLOR
                             + "[QuickStats] failed to contact Hypixel API. This is usually due to an invalid API key."));
-                    mc.thePlayer.addChatMessage(new ChatComponentText(Reference.COLOR
-                            + "[QuickStats] On Hypixel, type /api new to get a new key and the mod should automatically grab it."));
                     if (GUIConfig.debugMode) {
                         e.printStackTrace();
                     }

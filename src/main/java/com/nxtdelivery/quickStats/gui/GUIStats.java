@@ -287,9 +287,6 @@ public class GUIStats extends Gui {
             if (api.generalError) {
                 title = "An error occurred!";
             }
-            if (api.noAPI) {
-                title = "No valid API key!";
-            }
             if (api.timeOut) {
                 title = "Request timed out!";
             }
