@@ -1,6 +1,6 @@
-package com.nxtdelivery.quickStats.util;
+package me.spoony.quickStatsReborn.util;
 
-import com.nxtdelivery.quickStats.QuickStats;
+import me.spoony.quickStatsReborn.QuickStats;
 
 import java.net.URL;
 import java.util.Properties;

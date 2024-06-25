@@ -1,7 +1,7 @@
-package com.nxtdelivery.quickStats.gui;
+package me.spoony.quickStatsReborn.gui;
 
-import com.nxtdelivery.quickStats.QuickStats;
-import com.nxtdelivery.quickStats.api.ApiRequest;
+import me.spoony.quickStatsReborn.QuickStats;
+import me.spoony.quickStatsReborn.api.ApiRequest;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;

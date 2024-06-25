@@ -1,9 +1,10 @@
-package com.nxtdelivery.quickStats.command;
+package me.spoony.quickStatsReborn.command;
 
-import com.nxtdelivery.quickStats.QuickStats;
-import com.nxtdelivery.quickStats.Reference;
-import com.nxtdelivery.quickStats.gui.GUIConfig;
-import com.nxtdelivery.quickStats.util.*;
+import me.spoony.quickStatsReborn.QuickStats;
+import me.spoony.quickStatsReborn.Reference;
+import me.spoony.quickStatsReborn.gui.GUIConfig;
+import me.spoony.quickStatsReborn.util.*;
+import me.spoony.quickStatsReborn.util.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.command.CommandException;

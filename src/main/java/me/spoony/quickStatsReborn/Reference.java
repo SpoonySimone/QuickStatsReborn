@@ -1,4 +1,4 @@
-package com.nxtdelivery.quickStats;
+package me.spoony.quickStatsReborn;
 
 import net.minecraft.util.EnumChatFormatting;
 

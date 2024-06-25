@@ -4,12 +4,13 @@
  *  code cleanup
  */
 
-package com.nxtdelivery.quickStats;
+package me.spoony.quickStatsReborn;
 
-import com.nxtdelivery.quickStats.command.StatsCommand;
-import com.nxtdelivery.quickStats.gui.GUIConfig;
-import com.nxtdelivery.quickStats.gui.GUIStats;
-import com.nxtdelivery.quickStats.util.*;
+import me.spoony.quickStatsReborn.command.StatsCommand;
+import me.spoony.quickStatsReborn.gui.GUIConfig;
+import me.spoony.quickStatsReborn.gui.GUIStats;
+import me.spoony.quickStatsReborn.util.*;
+import me.spoony.quickStatsReborn.util.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.Entity;

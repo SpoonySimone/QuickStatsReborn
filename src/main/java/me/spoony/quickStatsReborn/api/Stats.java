@@ -1,8 +1,8 @@
-package com.nxtdelivery.quickStats.api;
+package me.spoony.quickStatsReborn.api;
 
 import com.google.gson.JsonObject;
-import com.nxtdelivery.quickStats.QuickStats;
-import com.nxtdelivery.quickStats.gui.GUIConfig;
+import me.spoony.quickStatsReborn.QuickStats;
+import me.spoony.quickStatsReborn.gui.GUIConfig;
 import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;

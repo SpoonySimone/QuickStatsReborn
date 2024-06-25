@@ -1,8 +1,8 @@
-package com.nxtdelivery.quickStats.util;
+package me.spoony.quickStatsReborn.util;
 
-import com.nxtdelivery.quickStats.QuickStats;
-import com.nxtdelivery.quickStats.Reference;
-import com.nxtdelivery.quickStats.gui.GUIConfig;
+import me.spoony.quickStatsReborn.QuickStats;
+import me.spoony.quickStatsReborn.Reference;
+import me.spoony.quickStatsReborn.gui.GUIConfig;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.util.ReportedException;
 import org.jetbrains.annotations.NotNull;

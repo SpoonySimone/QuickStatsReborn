@@ -1,11 +1,11 @@
-package com.nxtdelivery.quickStats.api;
+package me.spoony.quickStatsReborn.api;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.nxtdelivery.quickStats.QuickStats;
-import com.nxtdelivery.quickStats.Reference;
-import com.nxtdelivery.quickStats.gui.GUIConfig;
-import com.nxtdelivery.quickStats.util.LocrawUtil;
+import me.spoony.quickStatsReborn.QuickStats;
+import me.spoony.quickStatsReborn.Reference;
+import me.spoony.quickStatsReborn.gui.GUIConfig;
+import me.spoony.quickStatsReborn.util.LocrawUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;
 
@@ -24,7 +24,6 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.util.EntityUtils;
 import com.google.gson.Gson;
 

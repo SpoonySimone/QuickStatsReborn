@@ -1,4 +1,4 @@
-package com.nxtdelivery.quickStats.util;
+package me.spoony.quickStatsReborn.util;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod.EventHandler;

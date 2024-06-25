@@ -1,8 +1,8 @@
-package com.nxtdelivery.quickStats.gui;
+package me.spoony.quickStatsReborn.gui;
 
-import com.nxtdelivery.quickStats.QuickStats;
-import com.nxtdelivery.quickStats.Reference;
-import com.nxtdelivery.quickStats.util.TickDelay;
+import me.spoony.quickStatsReborn.QuickStats;
+import me.spoony.quickStatsReborn.Reference;
+import me.spoony.quickStatsReborn.util.TickDelay;
 import gg.essential.vigilance.Vigilant;
 import gg.essential.vigilance.data.Property;
 import gg.essential.vigilance.data.PropertyType;

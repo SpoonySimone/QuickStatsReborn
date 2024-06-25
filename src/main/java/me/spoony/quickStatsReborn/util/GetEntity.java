@@ -1,7 +1,7 @@
-package com.nxtdelivery.quickStats.util;
+package me.spoony.quickStatsReborn.util;
 
 import com.google.common.base.Predicates;
-import com.nxtdelivery.quickStats.gui.GUIConfig;
+import me.spoony.quickStatsReborn.gui.GUIConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
