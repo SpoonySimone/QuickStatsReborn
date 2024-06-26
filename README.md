@@ -66,3 +66,5 @@ This product is not affiliated or endorsed by Hypixel in any way
 - Auto-Updater
 - Render the GUI using OneConfig
 - Add more games
+- Add support for binding key via OneKeybind
+- Upload to modrinth
