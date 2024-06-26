@@ -1,21 +1,15 @@
-/* Changelog v1.6.3
- *  fully added hash checker
- *  bug fixes
- *  code cleanup
- */
 
 package me.spoony.quickStatsReborn;
 
 import me.spoony.quickStatsReborn.command.StatsCommand;
-import me.spoony.quickStatsReborn.gui.GUIConfig;
-import me.spoony.quickStatsReborn.gui.GUIStats;
+import me.spoony.quickStatsReborn.config.ModConfig;
+import me.spoony.quickStatsReborn.hud.HUDRenderer;
 import me.spoony.quickStatsReborn.util.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.event.ClickEvent;
-import net.minecraft.event.ClickEvent.Action;
 import net.minecraft.event.HoverEvent;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatStyle;
@@ -40,10 +34,10 @@ import org.lwjgl.input.Keyboard;
 import java.io.File;
 
 @Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION)
-public class QuickStats {
+public class QuickStatsReborn {
     @Mod.Instance("@ID@") // variables and things
-    public static QuickStats instance;
-    public static GUIConfig config;
+    public static QuickStatsReborn instance;
+    public static ModConfig config;
     private static final Minecraft mc = Minecraft.getMinecraft();
     private KeyBinding statsKey;
     public static final Logger LOGGER = LogManager.getLogger(Reference.NAME);
@@ -53,7 +47,7 @@ public class QuickStats {
     public static boolean locraw = false;
     public static boolean corrupt = false;
     public static LocrawUtil LocInst;
-    public static GUIStats GuiInst;
+    public static HUDRenderer GuiInst;
     public static boolean onHypixel = false;
     boolean set = false;
     String partySet;
@@ -62,16 +56,16 @@ public class QuickStats {
     public void preInit(FMLPreInitializationEvent event) {
         LOGGER.info("Preloading config...");
         try {
-            config = new GUIConfig();
+            config = new ModConfig();
         } catch (Exception e) {
-            if (GUIConfig.debugMode) {
+            if (ModConfig.debugMode) {
                 e.printStackTrace();
             }
             corrupt = true;
             LOGGER.error("Config failed to read. File has been reset. If you just reset your config, ignore this message.");
         }
         JarFile = event.getSourceFile();
-        if (GUIConfig.debugMode) {
+        if (ModConfig.debugMode) {
             LOGGER.info("Got JAR File: " + JarFile.getPath());
         }
     }
@@ -79,15 +73,14 @@ public class QuickStats {
     @EventHandler()
     public void init(FMLInitializationEvent event) {
         LOGGER.info("attempting to check update status and mod authenticity...");
-        updateCheck = UpdateChecker.checkUpdate(Reference.VERSION);
         AuthChecker.checkAuth(JarFile.getPath());
         LOGGER.info("registering settings...");
-        statsKey = new KeyBinding("Get Stats", GUIConfig.key, "QuickStats");
+        statsKey = new KeyBinding("Get Stats", ModConfig.key, "QuickStats");
         ClientRegistry.registerKeyBinding(statsKey);
         MinecraftForge.EVENT_BUS.register(this);
         ClientCommandHandler.instance.registerCommand(new StatsCommand());
         LocInst = new LocrawUtil();
-        GuiInst = new GUIStats();
+        GuiInst = new HUDRenderer();
         locraw = true;
         LOGGER.debug(instance.toString());
         LOGGER.info("Complete! QuickStatsReborn loaded successfully.");
@@ -95,11 +88,11 @@ public class QuickStats {
 
     @SubscribeEvent
     public void onKeyPress(InputEvent.KeyInputEvent event) {
-        if (onHypixel || GUIConfig.otherServer) {
-            if (Keyboard.getEventKey() == statsKey.getKeyCode() && GUIConfig.modEnabled) {
-                if (GUIConfig.key != statsKey.getKeyCode()) {                // will write new key code if the player changed it in settings
-                    LOGGER.warn("Key code from config (" + GUIConfig.key + ") differs to key code just used! (" + statsKey.getKeyCode() + ") writing new to config file...");
-                    GUIConfig.key = Keyboard.getEventKey();
+        if (onHypixel || ModConfig.otherServer) {
+            if (Keyboard.getEventKey() == statsKey.getKeyCode() && ModConfig.modEnabled) {
+                if (ModConfig.key != statsKey.getKeyCode()) {                // will write new key code if the player changed it in settings
+                    LOGGER.warn("Key code from config (" + ModConfig.key + ") differs to key code just used! (" + statsKey.getKeyCode() + ") writing new to config file...");
+                    ModConfig.key = Keyboard.getEventKey();
                 }
                 if (Keyboard.getEventKeyState()) {
                     try {
@@ -125,9 +118,9 @@ public class QuickStats {
     @SubscribeEvent
     public void onChatReceive(ClientChatReceivedEvent event) {
         if (onHypixel) {
-            if (GUIConfig.doPartyDetection) {
-                if (QuickStats.locraw) {
-                    QuickStats.locraw = false;
+            if (ModConfig.doPartyDetection) {
+                if (QuickStatsReborn.locraw) {
+                    QuickStatsReborn.locraw = false;
                     LocInst.send();
                 }
                 if (LocrawUtil.lobby) {
@@ -146,7 +139,7 @@ public class QuickStats {
                             }
                         }
 
-                        if (GUIConfig.doPartyDetectionPLUS) {
+                        if (ModConfig.doPartyDetectionPLUS) {
                             if (event.message.getUnformattedText().contains("say")) {
                                 if (getUsernameFromChat(event.message.getUnformattedText()).equals(mc.thePlayer.getName())) {
                                     try {
@@ -157,11 +150,11 @@ public class QuickStats {
                                             partySet = null;
                                             set = false;
                                         }
-                                        if (GUIConfig.debugMode) {
+                                        if (ModConfig.debugMode) {
                                             LOGGER.info(partySet);
                                         }
                                     } catch (Exception e) {
-                                        if (GUIConfig.debugMode) {
+                                        if (ModConfig.debugMode) {
                                             e.printStackTrace();
                                             set = false;
                                         }
@@ -182,7 +175,7 @@ public class QuickStats {
                             }
                         }
                     } catch (Exception e) {
-                        if (GUIConfig.debugMode) {
+                        if (ModConfig.debugMode) {
                             e.printStackTrace();
                         }
                     }
@@ -196,7 +189,7 @@ public class QuickStats {
             String unformatted = EnumChatFormatting.getTextWithoutFormattingCodes(message);
             return unformatted.substring(unformatted.lastIndexOf("]") + 2, unformatted.lastIndexOf(":"));
         } catch (Exception e) {
-            if (GUIConfig.debugMode) {
+            if (ModConfig.debugMode) {
                 e.printStackTrace();
             }
             return null;
@@ -209,7 +202,7 @@ public class QuickStats {
     public void onWorldLoad(WorldEvent.Load event) {
         try {
             if (mc.getCurrentServerData().serverIP.contains("hypixel")) {
-                if (GUIConfig.debugMode) {
+                if (ModConfig.debugMode) {
                     LOGGER.info("on Hypixel!");
                 }
                 locraw = true;
@@ -221,9 +214,9 @@ public class QuickStats {
                 locraw = false;
             }
         } catch (Exception e) {
-            // if(GUIConfig.debugMode) {e.printStackTrace();}
+            // if(ModConfig.debugMode) {e.printStackTrace();}
         }
-        if (updateCheck && GUIConfig.sendUp && event.world.isRemote) {
+        if (updateCheck && ModConfig.sendUp && event.world.isRemote) {
             new TickDelay(this::sendUpdateMessage, 20);
             updateCheck = false;
         }
@@ -235,7 +228,7 @@ public class QuickStats {
                 betaFlag = false;
             } catch (Exception e) {
                 betaFlag = true;
-                //if (GUIConfig.debugMode) { e.printStackTrace(); }
+                //if (ModConfig.debugMode) { e.printStackTrace(); }
                 LOGGER.error("skipping beta message, bad world return!");
             }
         }
@@ -246,18 +239,18 @@ public class QuickStats {
                         "If you just reset your configuration file, ignore this message."), 20);
                 corrupt = false;
             } catch (Exception e) {
-                //if (GUIConfig.debugMode) { e.printStackTrace(); }
+                //if (ModConfig.debugMode) { e.printStackTrace(); }
                 LOGGER.error("skipping corrupt message, bad world return!");
             }
         }
-        if (AuthChecker.mismatch && GUIConfig.securityLevel == 2) {
+        if (AuthChecker.mismatch && ModConfig.securityLevel == 2) {
             try {
                 new TickDelay(() -> sendMessages("The hash for the mod is incorrect. Check the logs for more info.",
                         "WARNING: This could mean your data is exposed to hackers! Make sure you got the mod from the OFFICIAL mirror, and try again.",
                         Reference.URL), 20);
                 AuthChecker.mismatch = false;
             } catch (Exception e) {
-                //if (GUIConfig.debugMode) { e.printStackTrace();}
+                //if (ModConfig.debugMode) { e.printStackTrace();}
                 LOGGER.error("skipping hash mismatch message, bad world return!");
             }
         }
@@ -271,7 +264,7 @@ public class QuickStats {
             }
         } catch (Exception e) {
             LOGGER.error("Didn't send message: " + e.getMessage());
-            //if (GUIConfig.debugMode) { e.printStackTrace(); }
+            //if (ModConfig.debugMode) { e.printStackTrace(); }
             if (Reference.VERSION.contains("beta")) {
                 betaFlag = true;
             }
@@ -281,7 +274,7 @@ public class QuickStats {
     private void sendUpdateMessage() {
         try {
             IChatComponent comp = new ChatComponentText("Click here to update it!");
-            ChatStyle style = new ChatStyle().setChatClickEvent(new ClickEvent(Action.OPEN_URL, Reference.URL));
+            ChatStyle style = new ChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, Reference.URL));
             style.setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
                     new ChatComponentText(Reference.COLOR + Reference.URL)));
             style.setColor(Reference.COLOR);
@@ -291,12 +284,12 @@ public class QuickStats {
             mc.thePlayer.addChatMessage(new ChatComponentText(
                     Reference.COLOR + "--------------------------------------"));
             mc.thePlayer.addChatMessage(new ChatComponentText(Reference.COLOR
-                    + ("A newer version of " + Reference.NAME + " is available! (" + UpdateChecker.latestVersion + ")")));
+                    + ("A newer version of " + Reference.NAME + " is available! (" + Updater.latestVersion + ")")));
             mc.thePlayer.addChatMessage(comp);
             mc.thePlayer.addChatMessage(new ChatComponentText(
                     Reference.COLOR + "--------------------------------------"));
         } catch (NullPointerException e) {
-            //if (GUIConfig.debugMode) { e.printStackTrace(); }
+            //if (ModConfig.debugMode) { e.printStackTrace(); }
             updateCheck = true;
             LOGGER.error("skipping update message, bad world return!");
         }

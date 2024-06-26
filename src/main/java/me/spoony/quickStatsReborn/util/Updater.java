@@ -1,11 +1,11 @@
 package me.spoony.quickStatsReborn.util;
 
-import me.spoony.quickStatsReborn.QuickStats;
+import me.spoony.quickStatsReborn.QuickStatsReborn;
 
 import java.net.URL;
 import java.util.Properties;
 
-public class UpdateChecker {
+public class Updater {
     public static String latestVersion;
 
     public static boolean checkUpdate(String currentVersion) {
@@ -16,26 +16,26 @@ public class UpdateChecker {
                     .openStream());
             latestVersion = prop.getProperty("mod_version");
             if (latestVersion.equals("0")) {
-                QuickStats.LOGGER.warn(
+                QuickStatsReborn.LOGGER.warn(
                         "version checker is 0. This is a feature added to prevent errors. Version checker disabled.");
                 return false;
             }
             if (currentVersion.contains("beta")) {
-                QuickStats.LOGGER.warn("beta build detected. This build might be unstable, use at your own risk!");
-                QuickStats.betaFlag = true;
+                QuickStatsReborn.LOGGER.warn("beta build detected. This build might be unstable, use at your own risk!");
+                QuickStatsReborn.betaFlag = true;
             }
             if (!currentVersion.equals(latestVersion)) {
-                QuickStats.LOGGER.warn("a newer version " + latestVersion + " is available! Please consider updating! ("
+                QuickStatsReborn.LOGGER.warn("a newer version " + latestVersion + " is available! Please consider updating! ("
                         + currentVersion + ")");
                 return true;
             } else {
-                QuickStats.LOGGER.info("already using the newest version (" + latestVersion + ")");
+                QuickStatsReborn.LOGGER.info("already using the newest version (" + latestVersion + ")");
                 return false;
             }
         } catch (Exception e) {
             // e.printStackTrace();
-            QuickStats.LOGGER.error(e);
-            QuickStats.LOGGER.error("failed to check version. assuming latest version.");
+            QuickStatsReborn.LOGGER.error(e);
+            QuickStatsReborn.LOGGER.error("failed to check version. assuming latest version.");
             return false;
         }
     }

@@ -1,9 +1,10 @@
 package me.spoony.quickStatsReborn.command;
 
-import me.spoony.quickStatsReborn.QuickStats;
+import me.spoony.quickStatsReborn.QuickStatsReborn;
 import me.spoony.quickStatsReborn.Reference;
-import me.spoony.quickStatsReborn.gui.GUIConfig;
+import me.spoony.quickStatsReborn.config.ModConfig;
 import me.spoony.quickStatsReborn.util.*;
+import me.spoony.quickStatsReborn.util.Updater;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.command.CommandException;
@@ -56,35 +57,35 @@ public class StatsCommand implements ICommand {
         try {
             switch (args[0]) {
                 case "reload":
-                    QuickStats.LOGGER.info("Reloading config and version checker...");
-                    QuickStats.sendMessages("Reloading!");
-                    QuickStats.updateCheck = UpdateChecker.checkUpdate(Reference.VERSION);
-                    AuthChecker.checkAuth(QuickStats.JarFile.getPath());
-                    QuickStats.sendMessages("Reloaded! Re-log and check logs for more information.");
+                    QuickStatsReborn.LOGGER.info("Reloading config and version checker...");
+                    QuickStatsReborn.sendMessages("Reloading!");
+                    QuickStatsReborn.updateCheck = Updater.checkUpdate(Reference.VERSION);
+                    AuthChecker.checkAuth(QuickStatsReborn.JarFile.getPath());
+                    QuickStatsReborn.sendMessages("Reloaded! Re-log and check logs for more information.");
                     Minecraft.getMinecraft().thePlayer.playSound("minecraft:random.successful_hit", 1.0F, 1.0F);
                     break;
                 case "testLoc":
-                    QuickStats.sendMessages("Testing locraw function...");
-                    QuickStats.LocInst.send();
+                    QuickStatsReborn.sendMessages("Testing locraw function...");
+                    QuickStatsReborn.LocInst.send();
                     break;
                 case "test":
-                    QuickStats.sendMessages("Testing function...");
-                    QuickStats.GuiInst.showGUI("SpoonySimone");
+                    QuickStatsReborn.sendMessages("Testing function...");
+                    QuickStatsReborn.GuiInst.showGUI("SpoonySimone");
                     break;
                 case "testEntity":
                     try {
-                        QuickStats.sendMessages("Testing getEntity function...");
-                        QuickStats.LOGGER.info(GetEntity.get(0).getName());
-                        QuickStats.sendMessages("entity = " + GetEntity.get(0).getName());
+                        QuickStatsReborn.sendMessages("Testing getEntity function...");
+                        QuickStatsReborn.LOGGER.info(GetEntity.get(0).getName());
+                        QuickStatsReborn.sendMessages("entity = " + GetEntity.get(0).getName());
                     } catch (Exception e) {
-                        QuickStats.LOGGER.info("entity = null");
+                        QuickStatsReborn.LOGGER.info("entity = null");
                     }
                     break;
                 default:
                     if (args[0].equals("me")) {
-                        QuickStats.GuiInst.showGUI(mc.thePlayer.getName());
+                        QuickStatsReborn.GuiInst.showGUI(mc.thePlayer.getName());
                     } else {
-                        QuickStats.GuiInst.showGUI(args[0]);
+                        QuickStatsReborn.GuiInst.showGUI(args[0]);
                     }
                     try {
                         if (args.length == 2) {
@@ -115,7 +116,7 @@ public class StatsCommand implements ICommand {
                             }
                         }
                     } catch (Exception e) {
-                        if (GUIConfig.debugMode) {
+                        if (ModConfig.debugMode) {
                             e.printStackTrace();
                         }
                     }
@@ -146,7 +147,7 @@ public class StatsCommand implements ICommand {
             if (args.length == 1) return getListOfStringsMatchingLastWord(args, list.toArray(new String[0]));
             else return null;
         } catch (Exception e) {
-            if (GUIConfig.debugMode) {
+            if (ModConfig.debugMode) {
                 e.printStackTrace();
             }
             return null;

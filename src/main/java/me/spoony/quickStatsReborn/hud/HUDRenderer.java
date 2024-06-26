@@ -1,7 +1,8 @@
-package me.spoony.quickStatsReborn.gui;
+package me.spoony.quickStatsReborn.hud;
 
-import me.spoony.quickStatsReborn.QuickStats;
+import me.spoony.quickStatsReborn.QuickStatsReborn;
 import me.spoony.quickStatsReborn.api.ApiRequest;
+import me.spoony.quickStatsReborn.config.ModConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
@@ -17,7 +18,7 @@ import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 
-public class GUIStats extends Gui {
+public class HUDRenderer extends Gui {
     private static final Minecraft mc = Minecraft.getMinecraft();
     FontRenderer fr = mc.fontRendererObj;
     long systemTime = Minecraft.getSystemTime();
@@ -30,7 +31,7 @@ public class GUIStats extends Gui {
     public static Integer guiScale;
 
 
-    public GUIStats() {
+    public HUDRenderer() {
         register();
     }
 
@@ -47,14 +48,14 @@ public class GUIStats extends Gui {
         guiScale = mc.gameSettings.guiScale;
         systemTime = Minecraft.getSystemTime();
         frames = 5 * 60;
-        framesLeft = ((long) GUIConfig.GUITime) * 60; // first number = delay before progress bar (def: 7)
+        framesLeft = ((long) ModConfig.GUITime) * 60; // first number = delay before progress bar (def: 7)
         fifth = frames / 5;
         upperThreshold = frames - fifth;
         lowerThreshold = fifth;
         percentComplete = 0.0f;
         username = user;
         int xOffset;
-        switch (GUIConfig.winPreset) {
+        switch (ModConfig.winPreset) {
             default:
             case 0:
                 xOffset = 40;
@@ -77,7 +78,7 @@ public class GUIStats extends Gui {
                 bottom = 515;
                 break;
         }
-        if (!GUIConfig.sizeEnabled) {
+        if (!ModConfig.sizeEnabled) {
             middle = midX + (scaledX * xOffset);
             fontScale = 0.8f;
             halfWidth = 82;
@@ -99,7 +100,7 @@ public class GUIStats extends Gui {
                     break;
             }
         }
-        switch (GUIConfig.colorPreset) {
+        switch (ModConfig.colorPreset) {
             case 1:         // essential
                 this.progColor = new Color(14, 156, 91, 255);
                 this.bgColor = new Color(22, 22, 24, 255);
@@ -126,21 +127,21 @@ public class GUIStats extends Gui {
                 this.textColor = new Color(241, 241, 241, 255);
                 break;
             default:
-                this.progColor = GUIConfig.progColor.toJavaColor();
-                this.bgColor = GUIConfig.bgColor.toJavaColor();
-                this.textColor = GUIConfig.textColor.toJavaColor();
+                this.progColor = ModConfig.progColor.toJavaColor();
+                this.bgColor = ModConfig.bgColor.toJavaColor();
+                this.textColor = ModConfig.textColor.toJavaColor();
 
         }
 
-        if (QuickStats.locraw) {
-            QuickStats.locraw = false;
-            QuickStats.LocInst.send();
+        if (QuickStatsReborn.locraw) {
+            QuickStatsReborn.locraw = false;
+            QuickStatsReborn.LocInst.send();
         }
         api = new ApiRequest(username);
-        if (GUIConfig.doSound) {
+        if (ModConfig.doSound) {
             mc.thePlayer.playSound("minecraft:random.successful_hit", 1.0F, 1.0F);
         }
-        //if (GUIConfig.debugMode) {
+        //if (ModConfig.debugMode) {
         //    QuickStats.LOGGER.info("---- Window Debug Information ----");
         //    QuickStats.LOGGER.info("SCALE=" + guiScale + " HEIGHT=" + height + " WIDTH=" + width + " SCALEDX=" + scaledX + " SCALEDY=" + scaledY);
         //    QuickStats.LOGGER.info("MIDDLE=" + middle + " TOP=" + top + " BOTTOM=" + bottom + " WIDTH=" + halfWidth + " SCALE=" + fontScale + " PADX=" + pad + " PADY=" + padY);
@@ -202,43 +203,43 @@ public class GUIStats extends Gui {
         if (framesLeft <= 0) {
             return;
         }
-        if (GUIConfig.sizeEnabled) {
-            middle = width - GUIConfig.winMiddle;
-            top = GUIConfig.winTop;
-            bottom = GUIConfig.winBottom;
-            halfWidth = GUIConfig.winWidth;
+        if (ModConfig.sizeEnabled) {
+            middle = width - ModConfig.winMiddle;
+            top = ModConfig.winTop;
+            bottom = ModConfig.winBottom;
+            halfWidth = ModConfig.winWidth;
             fontScale = 0.8f;
             pad = roundIntWithFloat(middle, 1.25f) - halfWidth;
             padY = roundIntWithFloat(top, 1.25f) + 26;
             fullWidth = halfWidth * 2;
             fullHeight = bottom - top;
-            this.bgColor = GUIConfig.bgColor.toJavaColor();
-            this.textColor = GUIConfig.textColor.toJavaColor();
-            this.progColor = GUIConfig.progColor.toJavaColor();
+            this.bgColor = ModConfig.bgColor.toJavaColor();
+            this.textColor = ModConfig.textColor.toJavaColor();
+            this.progColor = ModConfig.progColor.toJavaColor();
         }
-        if (GUIConfig.colorPreset == 0) {
-            this.progColor = GUIConfig.progColor.toJavaColor();
-            this.bgColor = GUIConfig.bgColor.toJavaColor();
-            this.textColor = GUIConfig.textColor.toJavaColor();
+        if (ModConfig.colorPreset == 0) {
+            this.progColor = ModConfig.progColor.toJavaColor();
+            this.bgColor = ModConfig.bgColor.toJavaColor();
+            this.textColor = ModConfig.textColor.toJavaColor();
         }
 
 
         while (systemTime < Minecraft.getSystemTime() + (1000 / 60)) {
-            if (progFrame == GUIConfig.framesToSkipP) {
+            if (progFrame == ModConfig.framesToSkipP) {
                 framesLeft--;
                 progFrame = -1;
             }
             progFrame++;
             systemTime += (1000 / 60);
         }
-        if (frame == GUIConfig.framesToSkip) {
+        if (frame == ModConfig.framesToSkip) {
             frame = 0;
             percentComplete = clamp(easeOut(percentComplete,
                     framesLeft < lowerThreshold ? 0.0f : framesLeft > upperThreshold ? 1.0f : framesLeft));
         } else {
             frame++;
         }
-        switch (GUIConfig.animationPreset) {
+        switch (ModConfig.animationPreset) {
             default:
             case 0:
                 currentWidth = (int) (halfWidth * percentComplete);
@@ -264,7 +265,7 @@ public class GUIStats extends Gui {
         }
 
         if (percentComplete == 1.0F) {
-            if (GUIConfig.test) {
+            if (ModConfig.test) {
                 framesLeft = 100;
             }
             long length = upperThreshold - lowerThreshold;
@@ -310,13 +311,13 @@ public class GUIStats extends Gui {
                     }
                 }
             } catch (Exception e) {
-                if (GUIConfig.debugMode) {
+                if (ModConfig.debugMode) {
                     e.printStackTrace();
                 }
             }
 
             if (guiScale != 0) {
-                if (GUIConfig.textShadow) {
+                if (ModConfig.textShadow) {
                     fr.drawStringWithShadow(title, middle - halfWidth + 20, top + 8, -1);
                 } else {
                     fr.drawString(title, middle - halfWidth + 20, top + 8, -1);
@@ -325,7 +326,7 @@ public class GUIStats extends Gui {
                 GL11.glScalef(fontScale, fontScale, fontScale); // shrink font
             }
             if (guiScale == 0) {
-                if (GUIConfig.textShadow) {
+                if (ModConfig.textShadow) {
                     fr.drawStringWithShadow(title, roundIntWithFloat(middle - halfWidth + 20, 1.52f), top + 24, -1);
                 } else {
                     fr.drawString(title, roundIntWithFloat(middle - halfWidth + 20, 1.52f), top + 24, -1);
@@ -335,16 +336,16 @@ public class GUIStats extends Gui {
             String resultMsg;
             try {
                 for (int i = 0; i < api.result.size(); i++) {
-                    QuickStats.LOGGER.debug(api.result.get(i));
+                    QuickStatsReborn.LOGGER.debug(api.result.get(i));
                     resultMsg = api.result.get(i);
-                    if (GUIConfig.textShadow) {
+                    if (ModConfig.textShadow) {
                         fr.drawStringWithShadow(resultMsg, pad, (10 * i) + padY, this.textColor.getRGB());
                     } else {
                         fr.drawString(resultMsg, pad, (10 * i) + padY, this.textColor.getRGB());
                     }
                 }
             } catch (Exception e) {
-                //if(GUIConfig.debugMode) {e.printStackTrace();}
+                //if(ModConfig.debugMode) {e.printStackTrace();}
             }
             GL11.glPopMatrix();
         }

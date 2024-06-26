@@ -2,9 +2,9 @@ package me.spoony.quickStatsReborn.api;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import me.spoony.quickStatsReborn.QuickStats;
+import me.spoony.quickStatsReborn.QuickStatsReborn;
 import me.spoony.quickStatsReborn.Reference;
-import me.spoony.quickStatsReborn.gui.GUIConfig;
+import me.spoony.quickStatsReborn.config.ModConfig;
 import me.spoony.quickStatsReborn.util.LocrawUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;
@@ -66,7 +66,7 @@ public class ApiRequest extends Thread {
             noUser = true;
             return;
         } catch (Exception e) {
-            if (GUIConfig.debugMode) {
+            if (ModConfig.debugMode) {
                 e.printStackTrace();
             }
 //            mc.thePlayer.addChatMessage(new ChatComponentText(Reference.COLOR
@@ -75,13 +75,13 @@ public class ApiRequest extends Thread {
         }
         /* get head texture */
         try {
-            if (GUIConfig.avatarHead) {
+            if (ModConfig.avatarHead) {
                 image = ImageIO.read(new URL("https://cravatar.eu/helmhead/" + uuid));
             } else {
                 image = ImageIO.read(new URL("https://cravatar.eu/helmavatar/" + uuid));
             }
         } catch (Exception e) {
-            if (GUIConfig.debugMode) {
+            if (ModConfig.debugMode) {
                 e.printStackTrace();
             }
         }
@@ -92,8 +92,8 @@ public class ApiRequest extends Thread {
                 return;
             }
             String url = "" + uuid;
-            if (GUIConfig.debugMode) {
-                QuickStats.LOGGER.info("Fetching Hypixel data from URL: " + url);
+            if (ModConfig.debugMode) {
+                QuickStatsReborn.LOGGER.info("Fetching Hypixel data from URL: " + url);
             }
             CloseableHttpClient httpClient = HttpClients.createDefault();
             HttpGet apiRequest = new HttpGet(url);
@@ -124,7 +124,7 @@ public class ApiRequest extends Thread {
                         } catch (Exception e) {
                             rank = "MVP_PLUS";
                             rankColor = "PINK";
-                            // if(GUIConfig.debugMode) {e.printStackTrace();}
+                            // if(ModConfig.debugMode) {e.printStackTrace();}
                         }
                         try { // youtuber
                             rank = js2.get("rank").getAsString();
@@ -147,12 +147,12 @@ public class ApiRequest extends Thread {
                 achievementStats = js2.get("achievements").getAsJsonObject();
                 result = Stats.getStats(rootStats, achievementStats, LocrawUtil.gameType);
                 endTime = (int) System.currentTimeMillis() - startTime;
-                QuickStats.LOGGER.info("successfully processed all data in " + endTime + "ms");
+                QuickStatsReborn.LOGGER.info("successfully processed all data in " + endTime + "ms");
             } else {
                 mc.thePlayer.addChatMessage(new ChatComponentText(Reference.COLOR
                         + "[QuickStats] The Hypixel API didn't process the request properly. Try again."));
                 generalError = true;
-                QuickStats.LOGGER.error("error occurred when building after API request, closing");
+                QuickStatsReborn.LOGGER.error("error occurred when building after API request, closing");
             }
 
         } catch (IOException e) {
@@ -168,7 +168,7 @@ public class ApiRequest extends Thread {
                 } else {
                     mc.thePlayer.addChatMessage(new ChatComponentText(Reference.COLOR
                             + "[QuickStats] failed to contact Hypixel API. This is usually due to an invalid API key."));
-                    if (GUIConfig.debugMode) {
+                    if (ModConfig.debugMode) {
                         e.printStackTrace();
                     }
                     generalError = true;
@@ -176,7 +176,7 @@ public class ApiRequest extends Thread {
             }
         } catch (Exception e) {
             // QuickStats.LOGGER.error(e.getStackTrace().toString());
-            if (GUIConfig.debugMode) {
+            if (ModConfig.debugMode) {
                 e.printStackTrace();
             }
             mc.thePlayer.addChatMessage(new ChatComponentText(Reference.COLOR
@@ -203,7 +203,7 @@ public class ApiRequest extends Thread {
     }
 
     private String getFormattedName(String name, String rank, String color) {
-        QuickStats.LOGGER.debug(color);
+        QuickStatsReborn.LOGGER.debug(color);
         String formattedName;
         boolean getColor = false;
         int plusA = 0;

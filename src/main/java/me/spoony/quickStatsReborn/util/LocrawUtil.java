@@ -2,8 +2,8 @@ package me.spoony.quickStatsReborn.util;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import me.spoony.quickStatsReborn.QuickStats;
-import me.spoony.quickStatsReborn.gui.GUIConfig;
+import me.spoony.quickStatsReborn.QuickStatsReborn;
+import me.spoony.quickStatsReborn.config.ModConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -34,13 +34,13 @@ public class LocrawUtil {
     public void send() {
         MinecraftForge.EVENT_BUS.register(this);
         try {
-            if (GUIConfig.autoGame && mc.getCurrentServerData().serverIP.contains("hypixel")) {
+            if (ModConfig.autoGame && mc.getCurrentServerData().serverIP.contains("hypixel")) {
                 mc.thePlayer.sendChatMessage("/locraw");
             } else {
                 gameType = "DEFAULT";
             }
         } catch (Exception e) {
-            QuickStats.LOGGER
+            QuickStatsReborn.LOGGER
                     .error("couldn't sent locraw message. this usually occurs when being kicked from the server.");
         }
     }
@@ -49,7 +49,7 @@ public class LocrawUtil {
     @SubscribeEvent(priority = EventPriority.HIGHEST, receiveCanceled = true)
     public void getGameType(ClientChatReceivedEvent event) {
         if (event.message.getUnformattedText().contains("{")) {
-            if (!GUIConfig.locrawComp) {
+            if (!ModConfig.locrawComp) {
                 event.setCanceled(true);
             }
             try {
@@ -61,11 +61,11 @@ public class LocrawUtil {
                     try {
                         gameType = jsonObject.get("gametype").getAsString();
                         lobby = true;
-                        if (GUIConfig.debugMode) {
-                            QuickStats.LOGGER.info("detected this as a lobby");
+                        if (ModConfig.debugMode) {
+                            QuickStatsReborn.LOGGER.info("detected this as a lobby");
                         }
                     } catch (Exception e1) { // catch if errors/in limbo
-                        if (GUIConfig.debugMode) {
+                        if (ModConfig.debugMode) {
                             e.printStackTrace();
                         }
                         lobby = false;
@@ -73,9 +73,9 @@ public class LocrawUtil {
                     }
                 }
 
-                QuickStats.LOGGER.info(gameType);
+                QuickStatsReborn.LOGGER.info(gameType);
             } catch (Exception e) {
-                if (GUIConfig.debugMode) {
+                if (ModConfig.debugMode) {
                     e.printStackTrace();
                 }
                 gameType = "DEFAULT";

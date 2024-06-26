@@ -1,7 +1,7 @@
 package me.spoony.quickStatsReborn.util;
 
 import com.google.common.base.Predicates;
-import me.spoony.quickStatsReborn.gui.GUIConfig;
+import me.spoony.quickStatsReborn.config.ModConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -25,7 +25,7 @@ public class GetEntity {
             if (mc.theWorld != null) {
                 mc.mcProfiler.startSection("pick");
                 mc.pointedEntity = null;
-                double d0 = GUIConfig.maxDetect;
+                double d0 = ModConfig.maxDetect;
                 mc.objectMouseOver = entity.rayTrace(d0, partialTicks);
                 double d1 = d0;
                 Vec3 vec3 = entity.getPositionEyes(partialTicks);

@@ -1,11 +1,11 @@
-package me.spoony.quickStatsReborn.gui;
+package me.spoony.quickStatsReborn.config;
 
 import cc.polyfrost.oneconfig.config.annotations.*;
 import cc.polyfrost.oneconfig.config.annotations.Number;
 import cc.polyfrost.oneconfig.config.annotations.Button;
 import cc.polyfrost.oneconfig.config.annotations.Color;
 import cc.polyfrost.oneconfig.config.core.OneColor;
-import me.spoony.quickStatsReborn.QuickStats;
+import me.spoony.quickStatsReborn.QuickStatsReborn;
 import me.spoony.quickStatsReborn.util.TickDelay;
 import cc.polyfrost.oneconfig.config.Config;
 import cc.polyfrost.oneconfig.config.data.Mod;
@@ -18,7 +18,7 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 
 
-public class GUIConfig extends Config {
+public class ModConfig extends Config {
     @Exclude
     public static boolean test = false;
     @Switch(
@@ -122,9 +122,9 @@ public class GUIConfig extends Config {
             writer.write("this was cleared so it will be reset on next restart.");
             writer.close();
 
-            QuickStats.LOGGER.warn("config file was cleared. Please restart your game.");
+            QuickStatsReborn.LOGGER.warn("config file was cleared. Please restart your game.");
         } catch (Exception e) {
-            QuickStats.LOGGER.error("failed to clear config, " + e);
+            QuickStatsReborn.LOGGER.error("failed to clear config, " + e);
         }
         CrashReport report = CrashReport.makeCrashReport(new Throwable() {
             @Override
@@ -157,7 +157,7 @@ public class GUIConfig extends Config {
     public static void testWin() {
         if (!test) {
             test = true;
-            QuickStats.GuiInst.showGUI("SpoonySimone");
+            QuickStatsReborn.GuiInst.showGUI("SpoonySimone");
         } else {
             test = false;
         }
@@ -345,7 +345,7 @@ public class GUIConfig extends Config {
     @Exclude
     private static final Minecraft mc = Minecraft.getMinecraft();
 
-    public GUIConfig() {
+    public ModConfig() {
         super(new Mod("QuickStatsReborn", ModType.HYPIXEL, "/icon.svg"), "quickstatsreborn.json");
         initialize();
 

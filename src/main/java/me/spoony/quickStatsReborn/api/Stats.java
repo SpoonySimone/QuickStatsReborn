@@ -1,8 +1,8 @@
 package me.spoony.quickStatsReborn.api;
 
 import com.google.gson.JsonObject;
-import me.spoony.quickStatsReborn.QuickStats;
-import me.spoony.quickStatsReborn.gui.GUIConfig;
+import me.spoony.quickStatsReborn.QuickStatsReborn;
+import me.spoony.quickStatsReborn.config.ModConfig;
 import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
@@ -21,13 +21,13 @@ public class Stats {
                     game = game.substring(1, game.length() - 1); // fix for too many speech marks
                 }
                 // System.out.println(game);
-                if (game.equals("MAIN") || game.equals("LIMBO") || game.equals("DEFAULT") || game.equals("LEGACY") || !GUIConfig.autoGame) {
+                if (game.equals("MAIN") || game.equals("LIMBO") || game.equals("DEFAULT") || game.equals("LEGACY") || !ModConfig.autoGame) {
                     throw new NullPointerException("default game");
                 }
             } catch (Exception e) {
-                //if(GUIConfig.debugMode) {e.printStackTrace();}
-                QuickStats.LOGGER.debug("default game: " + GUIConfig.defaultGame);
-                switch (GUIConfig.defaultGame) {
+                //if(ModConfig.debugMode) {e.printStackTrace();}
+                QuickStatsReborn.LOGGER.debug("default game: " + ModConfig.defaultGame);
+                switch (ModConfig.defaultGame) {
                     case 0:
                         game = "BEDWARS";
                         break;
@@ -134,7 +134,7 @@ public class Stats {
                 break;
 
                 case "DUELS":
-                    switch (GUIConfig.defaultDuel) {
+                    switch (ModConfig.defaultDuel) {
                         case 0:
                             returnStats = genericDuel("Classic 1v1", "classic_duel", playerStats);
                             break;
@@ -245,14 +245,14 @@ public class Stats {
                 //    break; 
 
                 default:
-                    QuickStats.LOGGER.warn("Unsupported game: " + game);
+                    QuickStatsReborn.LOGGER.warn("Unsupported game: " + game);
                     returnStats.add("you aren't in a supported game!");
                     returnStats.add("lots more games coming soon!");
                     break;
             }
             return returnStats;
         } catch (Exception e) {
-            if (GUIConfig.debugMode) {
+            if (ModConfig.debugMode) {
                 e.printStackTrace();
             }
             returnStats.add("No stats for this user were found!");
@@ -268,7 +268,7 @@ public class Stats {
             String kdString, wlString;
             result.add("Level: \u00A79" + getNullProtectedString("bedwars_level", acStats) + "✫" + "\u00A7r    Mode: \u00A72"
                     + gamemodeFormatted);
-            if (GUIConfig.compactMode) {
+            if (ModConfig.compactMode) {
                 result.add("W: \u00A75" + getFormattedInt(gamemode + "_wins_bedwars", bwStats)
                         + "\u00A7r      Coins: \u00A76" + getFormattedInt("coins", bwStats));
                 result.add("K: " + getFormattedInt(gamemode + "_kills_bedwars", bwStats) + "     D: "
@@ -368,7 +368,7 @@ public class Stats {
             result.add("K/D: " + kdString + "        Melee H/M: " + wlString);
         } catch (Exception e) {
             result.add("no more stats could be found!");
-            if (GUIConfig.debugMode) {
+            if (ModConfig.debugMode) {
                 e.printStackTrace();
             }
             return result;
@@ -395,7 +395,7 @@ public class Stats {
         } catch (NullPointerException e) {
             return "0";
         }
-        if (GUIConfig.numberFormat) {
+        if (ModConfig.numberFormat) {
             try {
                 NumberFormat form = NumberFormat.getInstance();
                 form.setGroupingUsed(true);
@@ -409,7 +409,7 @@ public class Stats {
     }
 
     private static String getFormattedInt(Integer num) {
-        if (GUIConfig.numberFormat) {
+        if (ModConfig.numberFormat) {
             try {
                 NumberFormat form = NumberFormat.getInstance();
                 form.setGroupingUsed(true);
