@@ -1,6 +1,7 @@
 
 package me.spoony.quickStatsReborn;
 
+import cc.polyfrost.oneconfig.libs.universal.UKeyboard;
 import me.spoony.quickStatsReborn.command.StatsCommand;
 import me.spoony.quickStatsReborn.config.ModConfig;
 import me.spoony.quickStatsReborn.hud.HUDRenderer;
@@ -31,6 +32,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 
+import java.awt.event.KeyEvent;
 import java.io.File;
 
 @Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION)
@@ -39,7 +41,7 @@ public class QuickStatsReborn {
     public static QuickStatsReborn instance;
     public static ModConfig config;
     private static final Minecraft mc = Minecraft.getMinecraft();
-    private KeyBinding statsKey;
+//    private KeyBinding statsKey;
     public static final Logger LOGGER = LogManager.getLogger(Reference.NAME);
     public static File JarFile;
     public static boolean updateCheck;
@@ -75,8 +77,8 @@ public class QuickStatsReborn {
         LOGGER.info("attempting to check update status and mod authenticity...");
         AuthChecker.checkAuth(JarFile.getPath());
         LOGGER.info("registering settings...");
-        statsKey = new KeyBinding("Get Stats", ModConfig.key, "QuickStats");
-        ClientRegistry.registerKeyBinding(statsKey);
+//        statsKey = new KeyBinding("Get Stats", ModConfig.keyBind.getSize(), "QuickStats");
+//        ClientRegistry.registerKeyBinding(statsKey);
         MinecraftForge.EVENT_BUS.register(this);
         ClientCommandHandler.instance.registerCommand(new StatsCommand());
         LocInst = new LocrawUtil();
@@ -86,13 +88,15 @@ public class QuickStatsReborn {
         LOGGER.info("Complete! QuickStatsReborn loaded successfully.");
     }
 
-    @SubscribeEvent
-    public void onKeyPress(InputEvent.KeyInputEvent event) {
+
+    public void onKeyPress() {
         if (onHypixel || ModConfig.otherServer) {
-            if (Keyboard.getEventKey() == statsKey.getKeyCode() && ModConfig.modEnabled) {
-                if (ModConfig.key != statsKey.getKeyCode()) {                // will write new key code if the player changed it in settings
-                    LOGGER.warn("Key code from config (" + ModConfig.key + ") differs to key code just used! (" + statsKey.getKeyCode() + ") writing new to config file...");
-                    ModConfig.key = Keyboard.getEventKey();
+            //compare the key that is being pressed to the one set in config
+            if (Keyboard.getEventKey() == Keyboard.getKeyIndex(ModConfig.keyBind.getDisplay()) && ModConfig.modEnabled) {
+                if (ModConfig.debugMode) {
+                    QuickStatsReborn.LOGGER.info("Pressed key: " + Keyboard.getEventKey());
+                    QuickStatsReborn.LOGGER.info("Config keybind: " + ModConfig.keyBind.getDisplay());
+                    QuickStatsReborn.LOGGER.info("Config keybind as int (should match pressed key): " + Keyboard.getKeyIndex(ModConfig.keyBind.getDisplay()));
                 }
                 if (Keyboard.getEventKeyState()) {
                     try {
