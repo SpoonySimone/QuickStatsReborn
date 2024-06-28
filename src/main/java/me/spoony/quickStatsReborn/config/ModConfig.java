@@ -343,7 +343,7 @@ public class ModConfig extends Config {
     @KeyBind(
             name = "Keybind",
             description = "Keybind of the mod.",
-            category = "General"
+            category = "General", subcategory = "General"
     )
     public static OneKeyBind keyBind = new OneKeyBind(UKeyboard.KEY_G);
 
