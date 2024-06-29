@@ -1,13 +1,11 @@
 
 package me.spoony.quickStatsReborn;
 
-import cc.polyfrost.oneconfig.libs.universal.UKeyboard;
 import me.spoony.quickStatsReborn.command.StatsCommand;
 import me.spoony.quickStatsReborn.config.ModConfig;
 import me.spoony.quickStatsReborn.hud.HUDRenderer;
 import me.spoony.quickStatsReborn.util.*;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.event.ClickEvent;
@@ -20,19 +18,16 @@ import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.WorldEvent;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.InputEvent;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 
-import java.awt.event.KeyEvent;
 import java.io.File;
 
 @Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION)
@@ -87,7 +82,6 @@ public class QuickStatsReborn {
         LOGGER.debug(instance.toString());
         LOGGER.info("Complete! QuickStatsReborn loaded successfully.");
     }
-
 
     public void onKeyPress() {
         if (onHypixel || ModConfig.otherServer) {
