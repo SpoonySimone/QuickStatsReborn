@@ -2,7 +2,7 @@
   {
     "modid": "${id}",
     "name": "${name}",
-    "description": "Mod to show stats of other nearby players in hypixel games.",
+    "description": "QuickStats is Hypixel utility mod to show stats of any player you want, directly in-game!",
     "version": "${version}",
     "mcversion": "${mcVersionStr}",
     "url": "https://github.com/SpoonySimone/QuickStatsReborn",
@@ -10,8 +10,8 @@
     "authorList": [
       "SpoonySimone"
     ],
-    "credits": "SpoonySimone, but huge thanks to nxtdaydelivery for the original mod as this wouldn't have been possible without him.",
-    "logoFile": "",
+    "credits": "nxtdaydelivery",
+    "logoFile": "qsr_icon.png",
     "screenshots": [],
     "dependencies": []
   }
