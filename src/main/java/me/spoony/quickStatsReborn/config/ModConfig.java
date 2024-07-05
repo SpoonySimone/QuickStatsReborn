@@ -114,7 +114,7 @@ public class ModConfig extends Config {
     @Switch(
             name = "Debug",
             description = "Enable/disable verbose logging to help with diagnostics.\n\u00A7eNote: You will see a lot of (useless) errors in logs with this active!",
-            category = "Support", subcategory = "General"
+            category = "General", subcategory = "Support"
     )
     public static boolean debugMode = false;
 
@@ -122,7 +122,7 @@ public class ModConfig extends Config {
             name = "Reset Defaults",
             text = "Reset",
             description = "Reset all values to their defaults.\n \u00A7cForcibly restarts your game!",
-            category = "Support", subcategory = "General"
+            category = "General", subcategory = "Support"
     )
     public static void reset() {
         mc.thePlayer.closeScreen();         //TODO
