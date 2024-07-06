@@ -64,6 +64,9 @@ public class StatsCommand implements ICommand {
                     QuickStatsReborn.sendMessages("Reloaded! Re-log and check logs for more information.");
                     Minecraft.getMinecraft().thePlayer.playSound("minecraft:random.successful_hit", 1.0F, 1.0F);
                     break;
+                case "configure":
+                    QuickStatsReborn.config.openGui();
+                    break;
                 case "testLoc":
                     QuickStatsReborn.sendMessages("Testing locraw function...");
                     QuickStatsReborn.LocInst.send();

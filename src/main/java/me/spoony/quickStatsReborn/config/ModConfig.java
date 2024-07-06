@@ -336,6 +336,7 @@ public class ModConfig extends Config {
 
     @Exclude
     private static final Minecraft mc = Minecraft.getMinecraft();
+    public static ModConfig instance = new ModConfig();
 
     public ModConfig() {
         super(new Mod("QuickStatsReborn", ModType.HYPIXEL, "/icon.svg"), "quickstatsreborn.json");
