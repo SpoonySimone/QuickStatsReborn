@@ -27,8 +27,8 @@ public class StatsCommand implements ICommand {
 
     public StatsCommand() {
         aliases = new ArrayList<>();
-        aliases.add("qsts");
-        aliases.add("quickstats");
+        aliases.add("quickstatsreborn");
+        aliases.add("qsr");
         aliases.add("qs");
     }
 
@@ -39,12 +39,12 @@ public class StatsCommand implements ICommand {
 
     @Override
     public String getCommandName() {
-        return "quickStats";
+        return "quickStatsReborn";
     }
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "quickStats <>";
+        return "quickStatsReborn <>";
     }
 
     @Override
@@ -127,9 +127,9 @@ public class StatsCommand implements ICommand {
             }
         } catch (Exception e) {
             sender.addChatMessage(new ChatComponentText(Reference.COLOR
-                    + "[QuickStats] Command menu (mod version " + Reference.VERSION + ")"));
+                    + "[QuickStatsReborn] Command menu (mod version " + Reference.VERSION + ")"));
             sender.addChatMessage(new ChatComponentText(Reference.COLOR
-                    + "[QuickStats] Command usage: /quickstats <name>, /quickstats reload"));
+                    + "[QuickStatsReborn] Command usage: /qsr <name>, /qsr configure, /qsr reload"));
         }
     }
 
