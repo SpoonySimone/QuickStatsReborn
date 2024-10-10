@@ -50,7 +50,7 @@ public class ModConfig extends Config {
             name = "Default Game",
             description = "Game to show stats for if nothing else is found.\nIf you want it to always show this stat, disable Automatic game detection.",
             category = "General", subcategory = "General",
-            options = {"Bedwars", "Skywars", "Duels", "Quake"}
+            options = {"Bedwars", "Skywars", "Duels", "Quake", "Wool Games"}
     )
     public static int defaultGame = 0;
     @Dropdown(

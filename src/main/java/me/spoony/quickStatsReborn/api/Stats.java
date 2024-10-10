@@ -41,7 +41,7 @@ public class Stats {
                         game = "solo";
                         break;
                     case 4:
-                        game = "wool";
+                        game = "WOOL_GAMES";
                         break;
                     default:        // just in case!
                         game = "teams_insane";
@@ -130,8 +130,8 @@ public class Stats {
                     returnStats = genericBW("BedWars Doubles", "eight_two", acStats, playerStats);
                     break;
                 case "BEDWARS_TWO_FOUR":
-                returnStats = genericBW("Bedwars 4v4", "two_four", acStats, playerStats);
-                break;
+                    returnStats = genericBW("Bedwars 4v4", "two_four", acStats, playerStats);
+                    break;
 
                 case "DUELS":
                     switch (ModConfig.defaultDuel) {
@@ -222,32 +222,36 @@ public class Stats {
                     }
                     break;
 
-                // case "wool": //wool wars
-                //    try {
-                //        JsonObject woolStats = playerStats.get("Wool Wars").getAsJsonObject();
-                    //    returnStats.add("Level: \u00A79" + calcWoolLevel() + "❤"
-                    //           + "\u00A7r       Game: \u00A72Wool Wars");
-                    //    returnStats.add("Wins: \u00A75" + getFormattedInt("woolgames_wool_wins", acStats));
-                    //            + "\u00A7r      Coins: \u00A76" + getFormattedInt("coins", acStats));
-                    //    returnStats.add("Kills: " + getFormattedInt("woolgames_wool_kills", acStats) + "     Deaths: "
-                    //            + getFormattedInt("deaths_bedwars", woolStats));
-                    //    kdString = ratioCalc(getNullProtectedFloat("woolgames_wool_kills", acStats),
-                    //            getNullProtectedFloat("woolgames_wool_death", woolStats), "kd");
-                    //    wlString = ratioCalc(getNullProtectedFloat("woolgames_wool_wins", woolStats),
-                    //            getNullProtectedFloat("woolgames_wool_loss", woolStats), "wins");
-                //    } catch (Exception e) {
-                //        e.printStackTrace();
-                //        returnStats.add("That player has never played!");
-                //    }
-                //    break;
-                //case "WOOL_GAMES":
-                //    returnStats = woolStats("Wool Wars", "wool_games", acStats, playerStats);
-                //    break; 
+                case "WOOL_GAMES": //wool wars
+                    try {
+                        JsonObject woolGames = playerStats.get("WoolGames").getAsJsonObject();
+                        returnStats.add("Level: \u00A79" + calcWoolLevel(woolGames.getAsJsonObject("progression").get("experience").getAsInt()) + "❤"
+                                + "\u00A7r       Game: \u00A72Wool Wars");
+                        returnStats.add("Wins: \u00A75" + (woolGames.getAsJsonObject("wool_wars").getAsJsonObject("stats").get("wins").getAsInt())
+                                + "\u00A7r      Wool: \u00A76" + (woolGames.get("coins").getAsInt()));
+                        returnStats.add("Kills: " + (woolGames.getAsJsonObject("wool_wars").getAsJsonObject("stats").get("kills").getAsInt()) + "     Deaths: "
+                                + (woolGames.getAsJsonObject("wool_wars").getAsJsonObject("stats").get("deaths").getAsInt()));
+                        kdString = ratioCalc((woolGames.getAsJsonObject("wool_wars").getAsJsonObject("stats").get("kills").getAsInt()),
+                                (woolGames.getAsJsonObject("wool_wars").getAsJsonObject("stats").get("deaths").getAsInt()), "kd");
+                        wlString = ratioCalc((woolGames.getAsJsonObject("wool_wars").getAsJsonObject("stats").get("wins").getAsInt()),
+                                ((woolGames.getAsJsonObject("wool_wars").getAsJsonObject("stats").get("games_played").getAsInt()) - (woolGames.getAsJsonObject("wool_wars").getAsJsonObject("stats").get("wins").getAsInt())), "wins");
+                        returnStats.add("K/D: " + kdString + "      Win/Loss: " + wlString);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        returnStats.add("That player has never played!");
+                    }
+                    break;
+                case "WOOL_WARS_TWO_FOUR":
+                    returnStats = woolStats("Wool Wars", "wool_wars", playerStats);
+                    break;
+                case "SHEEP_WARS_TWO_SIX":
+                    returnStats = woolStats("Sheep Wars", "sheep_wars", playerStats);
+                    break;
 
                 default:
                     QuickStatsReborn.LOGGER.warn("Unsupported game: " + game);
-                    returnStats.add("you aren't in a supported game!");
-                    returnStats.add("lots more games coming soon!");
+                    returnStats.add("You are in an unsupported game!");
+                    returnStats.add("Lots more games coming soon!");
                     break;
             }
             return returnStats;
@@ -255,7 +259,7 @@ public class Stats {
             if (ModConfig.debugMode) {
                 e.printStackTrace();
             }
-            returnStats.add("No stats for this user were found!");
+            returnStats.add("No stats were found for this player!");
             return returnStats;
         }
     }
@@ -375,7 +379,32 @@ public class Stats {
         }
         return result;
     
-    }                                                
+    }
+
+    private static ArrayList<String> woolStats(String gamemodeFormatted, String gamemode,
+                                               JsonObject playerStats) {
+        ArrayList<String> result = new ArrayList<>();
+        try {
+            JsonObject woolGames = playerStats.get("WoolGames").getAsJsonObject();
+            result.add("Level: \u00A79" + calcWoolLevel(woolGames.getAsJsonObject("progression").get("experience").getAsInt()) + "❤"
+                    + "\u00A7r       Game: " + gamemodeFormatted);
+            result.add("Wins: \u00A75" + (woolGames.getAsJsonObject("wool_wars").getAsJsonObject("stats").get("wins").getAsInt())
+                    + "\u00A7r      Coins: \u00A76" + (woolGames.get("coins").getAsInt()));
+            result.add("Kills: " + getFormattedInt("woolgames_wool_kills", woolGames) + "     Deaths: "
+                    + getFormattedInt("deaths", woolGames));
+            String kdString = ratioCalc(getNullProtectedFloat("kills", woolGames),
+                    getNullProtectedFloat("deaths", woolGames), "kd");
+            String wlString = ratioCalc(getNullProtectedFloat("wins", woolGames),
+                    ((getNullProtectedFloat("games_played", woolGames)) - (getNullProtectedFloat("wins", woolGames))), "wins");
+            result.add("K/D: " + kdString + "      Win/Loss: " + wlString);
+            return result;
+        } catch (Exception e) {
+            result.add("no more stats could be found!");
+            return result;
+        }
+    }
+
+
     /**
      * Method to get network level of player. Taken from Hypixel API documentation.
      */
@@ -470,23 +499,22 @@ public class Stats {
         }
         return result;
     }
+
+    private static int calcWoolLevel(int exp) {
+
+        if (exp < 1000) {
+            return 1;
+        } else if (exp < 3000) {
+            return 2;
+        } else if (exp < 6000) {
+            return 3;
+        } else if (exp < 10000) {
+            return 4;
+        } else if (exp < 15000) {
+            return 5;
+        } else {
+            return (exp - 15000) / 5000 + 6;
+        }
+    }
 }
-// Wool Wars lvl calculator
-//    private int calcWoolLevel(int exp) {
-//
-//        if (exp < 1000) {
-//            return 1;
-//        } else if (exp >= 1000 && exp < 3000) {
-//            return 2;
-//        } else if (exp >= 3000 && exp < 6000) {
-//            return 3;
-//        } else if (exp >= 6000 && exp < 10000) {
-//            return 4;
-//        } else if (exp >= 10000 && exp < 15000) {
-//            return 5;
-//        } else {
-//            int alreadyStars = 6;
-//            int fullStar = Math.floor((exp - 15000) / 5000) + alreadyStars;
-//            return fullStar;
-//       }
-//    }
+
