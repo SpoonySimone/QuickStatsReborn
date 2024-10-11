@@ -12,7 +12,7 @@ With just the press of a key/command, you can get detailed and informative stats
 # **Features**
 
 **_Informative, animated GUI_**                    
-![mod-showcase-qsts-gui](https://user-images.githubusercontent.com/79922345/138263355-5354fc0e-85fb-4a2d-8fdc-4d01a0ee9ee3.gif)
+![mod-showcase-qsts-gui](https://github.com/user-attachments/assets/2277c16d-b299-4dbb-a27b-f3bc176d94cd)
  - lots of useful information of the player showed in an instance!
  - can be used mid-game thanks to its unobtrusiveness!
 ⠀
