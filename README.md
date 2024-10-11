@@ -1,26 +1,25 @@
-# QuickStatsReborn by SpoonySimone
+## QuickStatsReborn by SpoonySimone
 QuickStats is an easy to use, Hypixel utility mod to show stats of any player you want! Simply press a key of your choice while looking at a player for a simple, easy to understand HUD about their statistics. 
 With automatic game detection, it works for whatever Hypixel game you happen to be playing! Its quick and lag-free activation allows for it to be used in any scenario, including PvP, making it the perfect companion for any Hypixel player.
 
-# _Mod Showcase_                        
+## Mod Showcase                       
 With just the press of a key/command, you can get detailed and informative stats on that player, no matter the game!
 ![mod-showcase-qsts](https://user-images.githubusercontent.com/79922345/138262477-c65ee786-8873-4383-875e-97566e85acf6.gif)
 
 
 
 
-# **Features**
-
-**_Informative, animated GUI_**                    
-![mod-showcase-qsts-gui](https://github.com/user-attachments/assets/2277c16d-b299-4dbb-a27b-f3bc176d94cd)
- - lots of useful information of the player showed in an instance!
- - can be used mid-game thanks to its unobtrusiveness!
+## **Features**
+**Informative, animated GUI**                    
+<img src=https://github.com/user-attachments/assets/4670eaca-a9c1-40ec-b190-0686bf664df0 width="60%" height="60%"/>
+ - Lots of useful information of the player showed in an instance!
+ - Can be used mid-game thanks to its unobtrusiveness!
 ⠀
 ⠀⠀⠀⠀
 ⠀⠀⠀⠀
 
 
-**_Simple Command /qs and Player Detection_**                           
+**Simple Command /qs and Player Detection**                           
 ![Screenshot 2021-11-27 104825](https://user-images.githubusercontent.com/79922345/143678140-02e1a97a-e80a-4c74-9fd5-6144995297d7.png)
 
  - allows you to get stats on any player by username with tab completion!
@@ -38,7 +37,7 @@ With just the press of a key/command, you can get detailed and informative stats
  - There are also many color and animation presets to choose from!
 
 
-**_Automatic Game Detection and Fast Setup_**                                        
+**Automatic Game Detection and Fast Setup**                                        
 ![image](https://user-images.githubusercontent.com/79922345/143678976-dd8e80e6-ec48-43f5-8cb2-f3ae9ed3e72c.png)
 
  - detects what game you are in automatically for game-based stats!
