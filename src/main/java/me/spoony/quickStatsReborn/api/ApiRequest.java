@@ -41,6 +41,7 @@ public class ApiRequest extends Thread {
     public boolean slowDown = false;
     public boolean nick = false;
     public static int karma;
+    public static int achievementPoints;
     public String uuid;
     public BufferedImage image;
     int startTime, endTime;
@@ -113,6 +114,7 @@ public class ApiRequest extends Thread {
                 try { // get rank and name
                     exp = js2.get("networkExp").getAsDouble();
                     karma = js2.get("karma").getAsInt();
+                    achievementPoints = js2.get("achievementPoints").getAsInt();
                     playerName = js2.get("displayname").getAsString();
                     rank = js2.get("newPackageRank").getAsString();
                     if (rank.equals("MVP_PLUS")) {

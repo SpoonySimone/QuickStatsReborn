@@ -52,7 +52,7 @@ public class Stats {
                 case "GENERAL":
                     try {
                         double lvl = getLevel(ApiRequest.exp);
-                        returnStats.add("Level: \u00A74" + lvl + "\u00A7r    Ach. Points: \u00A75" + getFormattedInt("achievementPoints", playerStats));
+                        returnStats.add("Level: \u00A74" + lvl + "\u00A7r    Ach. Points: \u00A75" + getFormattedInt(ApiRequest.achievementPoints));
                         returnStats.add("Karma: \u00A75" + getFormattedInt(ApiRequest.karma));      // TODO
                     } catch (Exception e) {
                         returnStats.add("Nothing found!");
