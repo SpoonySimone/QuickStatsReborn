@@ -36,7 +36,7 @@ public class AuthChecker {
             byte[] hashedBytes = digest.digest();
 
             hash = convertByteArrayToHexString(hashedBytes);
-            url = "https://raw.githubusercontent.com/nxtdaydelivery/quickStats/master/hashes/" + Reference.NAME + "-v" + Reference.VERSION + "_hash.sha256";
+            url = "https://raw.githubusercontent.com/SpoonySimone/QuickStatsReborn/master/hashes" + Reference.NAME + "-v" + Reference.VERSION + "_hash.sha256";
             String expectedHash = new BufferedReader(new InputStreamReader(new URL(url).openStream())).readLine();
             if (ModConfig.debugMode) {
                 QuickStatsReborn.LOGGER.debug("Generated hash: " + hash + " from file (this) " + filename);
