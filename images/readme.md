@@ -2,7 +2,7 @@
 This folder is used as a place to store images and videos about the mod
 
 ## Conversions
-### gif -> mp4
+### mp4 -> gif
 - Create palette first
 
 ```ffmpeg -i input.mp4 -vf "fps=30,palettegen=max_colors=256" -y palette.png```
