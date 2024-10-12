@@ -13,7 +13,7 @@ With just the press of a key/command, you can get detailed and informative stats
 
 **Features**
 **Informative, animated GUI**                    
-<img src=https://github.com/user-attachments/assets/4670eaca-a9c1-40ec-b190-0686bf664df0 width="60%" height="60%"/>
+<img src=/images/files/hud_showcase.gif width="75%" height="75%"/>
  - Lots of useful information of the player showed in an instance!
  - Can be used mid-game thanks to its unobtrusiveness!
 ⠀
@@ -22,7 +22,7 @@ With just the press of a key/command, you can get detailed and informative stats
 
 
 **Simple Command /qs and Player Detection**                           
-![Screenshot 2021-11-27 104825](https://user-images.githubusercontent.com/79922345/143678140-02e1a97a-e80a-4c74-9fd5-6144995297d7.png)
+<img src=/images/files/config_showcase.png width="75%" height="75%"/>
 
  - allows you to get stats on any player by username with tab completion!
  - allows for long range detection of players, so you can get players stats from over 200 blocks away!
@@ -34,13 +34,13 @@ With just the press of a key/command, you can get detailed and informative stats
 
 
 **Fully Customizable!**                         
-![ezgif com-gif-maker](https://user-images.githubusercontent.com/79922345/143678770-fffeece3-7bab-4a87-ac29-9276e3044478.gif)
+<img src=/images/files/customization_showcase.gif width="75%" height="75%"/>
  - fully customizable colors, animations, and window position for a tailored experience!
  - There are also many color and animation presets to choose from!
 
 
 **Automatic Game Detection and Fast Setup**                                        
-![image](https://user-images.githubusercontent.com/79922345/143678976-dd8e80e6-ec48-43f5-8cb2-f3ae9ed3e72c.png)
+<img src=images/files/command_showcase.png width="75%" height="75%"/>
 
  - detects what game you are in automatically for game-based stats!
  - ALL the big games on Hypixel are supported, including duels, SkyWars, and BedWars!
