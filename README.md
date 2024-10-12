@@ -9,7 +9,7 @@ With just the press of a key/command, you can get detailed and informative stats
 
 
 
-## **Features**
+**Features**
 **Informative, animated GUI**                    
 <img src=https://github.com/user-attachments/assets/4670eaca-a9c1-40ec-b190-0686bf664df0 width="60%" height="60%"/>
  - Lots of useful information of the player showed in an instance!
