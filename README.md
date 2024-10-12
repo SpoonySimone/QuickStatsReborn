@@ -1,7 +1,7 @@
 # QuickStatsReborn by SpoonySimone
 QuickStats is an easy to use, Hypixel utility mod to show stats of any player you want! Simply press a key of your choice while looking at a player for a simple, easy to understand HUD about their statistics. 
 With automatic game detection, it works for whatever Hypixel game you happen to be playing! Its quick and lag-free activation allows for it to be used in any scenario, including PvP, making it the perfect companion for any Hypixel player.\
-Credits to [nextdayy](https://github.com/nextdayy) for the base of the mod, as this is a fork of the mod [quickStats](https://github.com/nextdayy/quickStats)
+Credits to [nextdayy](https://modrinth.com/user/nextdayy) for the base of the mod, as this is a fork of the mod [quickStats](https://github.com/nextdayy/quickStats)
 
 ## Mod Showcase
 **Unobtrusive HUD**                  
