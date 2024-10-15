@@ -7,7 +7,7 @@ Credits to [nextdayy](https://modrinth.com/user/nextdayy) for the base of the mo
 **Unobtrusive HUD**                  
 With just the press of a key/command, you can get detailed and informative stats on that player, no matter the game!
 
-![mod-showcase-qsts](https://user-images.githubusercontent.com/79922345/138262477-c65ee786-8873-4383-875e-97566e85acf6.gif)
+<img src=https://raw.githubusercontent.com/SpoonySimone/QuickStatsReborn/refs/heads/main/images/files/game_showcase.gif width="75%" height="75%"/>
 
 
 
