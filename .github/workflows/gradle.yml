@@ -50,6 +50,8 @@ jobs:
 
       - name: Commit and push updated hash list
         run: |
+          git config --global user.name "Auto Hash Updater"
+          git config --global user.email "actions@github.com"
           git remote set-url origin https://x-access-token:${{ secrets.QSR_HASH_TOKEN }}@github.com/SpoonySimone/QuickStatsReborn.git
           git add hashes.txt
           git commit -m "Update hash list"
