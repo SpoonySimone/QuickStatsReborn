@@ -44,12 +44,12 @@ jobs:
 
       - name: Fetch current hash list
         run: |
-          mkdir -p hashes | cd hashes
+          mkdir -p hashes
           curl -o hashes/list https://raw.githubusercontent.com/SpoonySimone/QuickStatsReborn/refs/heads/main/hashes/list
           
       - name: Append new hash to the list
         run: |
-          echo "${{ steps.calculate-hash.outputs.hash }}" >> list
+          echo "${{ steps.calculate-hash.outputs.hash }}" >> hashes/list
 
       - name: Commit and push updated hash list
         run: |
