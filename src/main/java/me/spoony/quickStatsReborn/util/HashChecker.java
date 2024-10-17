@@ -38,7 +38,7 @@ public class HashChecker {
             byte[] hashedBytes = digest.digest();
 
             hash = convertByteArrayToHexString(hashedBytes);
-            url = "https://raw.githubusercontent.com/SpoonySimone/QuickStatsReborn/master/hashes/hashes";
+            url = "https://raw.githubusercontent.com/SpoonySimone/QuickStatsReborn/master/hashes/list";
             BufferedReader reader = new BufferedReader(new InputStreamReader(new URL(url).openStream()));
             List<String> expectedHashes = new ArrayList<>();
             String line;
