@@ -110,7 +110,7 @@ public class ModConfig extends Config {
             category = "General", subcategory = "Updates",
             options = {"Off", "Warn in Logger", "Warn on world join", "Halt startup"}
     )
-    public static int securityLevel = 1;
+    public static int securityLevel = 2;
     @Switch(
             name = "Debug",
             description = "Enable/disable verbose logging to help with diagnostics.\n\u00A7eNote: You will see a lot of (useless) errors in logs with this active!",

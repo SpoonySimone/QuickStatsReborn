@@ -24,6 +24,9 @@ public class Stats {
                 if (game.equals("MAIN") || game.equals("LIMBO") || game.equals("DEFAULT") || game.equals("LEGACY") || !ModConfig.autoGame) {
                     throw new NullPointerException("default game");
                 }
+                if (game.contains("_ULTIMATE")) {
+                    game = game.replace("_ULTIMATE", "");
+                }
             } catch (Exception e) {
                 //if(ModConfig.debugMode) {e.printStackTrace();}
                 QuickStatsReborn.LOGGER.debug("default game: " + ModConfig.defaultGame);
