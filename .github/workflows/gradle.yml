@@ -51,7 +51,11 @@ jobs:
           
       - name: Append new hash to the list
         run: |
-          echo "${{ steps.calculate-hash.outputs.hash }}" > hashes/list
+          if ! grep -q "${{ steps.calculate-hash.outputs.hash }}" hashes/list; then
+            echo "${{ steps.calculate-hash.outputs.hash }}" >> hashes/list
+          else
+            echo "Hash already exists, not appending."
+          fi
 
       - name: Commit and push updated hash list
         run: |
