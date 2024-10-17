@@ -35,3 +35,22 @@ jobs:
         with:
           name: QuickStatsReborn
           path: /home/runner/work/QuickStatsReborn/QuickStatsReborn/versions/1.8.9-forge/build/libs
+
+      - name: Calculate hash of the final JAR
+        id: calculate-hash
+        run: find . -type f -name "*.jar" ! -name "*-dev.jar" -exec sha256sum {} \; | awk '{ print $1 }'
+
+      - name: Fetch current hash list
+        run: |
+          curl -o hashes.txt https://raw.githubusercontent.com/SpoonySimone/QuickStatsReborn/refs/heads/main/hashes/list
+          
+      - name: Append new hash to the list
+        run: |
+          echo "${{ steps.calculate-hash.outputs.hash }}" >> hashes.txt
+
+      - name: Commit and push updated hash list
+        run: |
+          git remote set-url origin https://x-access-token:${{ secrets.QSR_HASH_TOKEN }}@github.com/SpoonySimone/QuickStatsReborn.git
+          git add hashes.txt
+          git commit -m "Update hash list"
+          git push
