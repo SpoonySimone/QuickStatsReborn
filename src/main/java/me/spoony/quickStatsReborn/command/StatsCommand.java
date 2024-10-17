@@ -113,6 +113,12 @@ public class StatsCommand implements ICommand {
                                 case "DL":
                                     LocrawUtil.gameType = "DUELS";
                                     break;
+                                case "WOOL":
+                                case "WOOLGAMES":
+                                case "WOOL_GAMES":
+                                case "WOOL_WARS":
+                                    LocrawUtil.gameType = "WOOL_GAMES";
+                                    break;
                                 default:
                                     LocrawUtil.gameType = args[1].toUpperCase();
                                     break;
