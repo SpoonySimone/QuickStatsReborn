@@ -14,8 +14,10 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.List;
 
-public class AuthChecker {
+public class HashChecker {
     public static boolean mismatch = false;
     private static String url;
     private static String hash;
@@ -36,15 +38,21 @@ public class AuthChecker {
             byte[] hashedBytes = digest.digest();
 
             hash = convertByteArrayToHexString(hashedBytes);
-            url = "https://raw.githubusercontent.com/SpoonySimone/QuickStatsReborn/master/hashes/" + Reference.NAME + "-v" + Reference.VERSION + "_hash.sha256";
-            String expectedHash = new BufferedReader(new InputStreamReader(new URL(url).openStream())).readLine();
+            url = "https://raw.githubusercontent.com/SpoonySimone/QuickStatsReborn/master/hashes/hashes";
+            BufferedReader reader = new BufferedReader(new InputStreamReader(new URL(url).openStream()));
+            List<String> expectedHashes = new ArrayList<>();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                expectedHashes.add(line.trim());
+            }
+
             if (ModConfig.debugMode) {
                 QuickStatsReborn.LOGGER.debug("Generated hash: " + hash + " from file (this) " + filename);
-                QuickStatsReborn.LOGGER.debug("Fetched hash " + expectedHash + " from URL " + url);
+                QuickStatsReborn.LOGGER.debug("Fetched hashes " + expectedHashes + " from URL " + url);
             }
-            if (!hash.equals(expectedHash)) {
-                QuickStatsReborn.LOGGER.error("Mismatch in the provided hashes. This could mean that the mod has been modified.");
-                QuickStatsReborn.LOGGER.error("Local hash that was expected: " + hash + "\tHash that was received from mirror: " + expectedHash);
+            if (!expectedHashes.contains(hash)) {
+                QuickStatsReborn.LOGGER.error("Mismatch in the provided hashes. This means that the mod has been modified.");
+                QuickStatsReborn.LOGGER.error("Local hash that was expected: " + hash + "\tNone of the hashes received from the mirror match.");
                 QuickStatsReborn.LOGGER.error("Your account information could be at risk to attackers who modified this code!");
                 QuickStatsReborn.LOGGER.error("Make sure that you downloaded the mod from the OFFICIAL mirror, and try again. " + Reference.URL);
                 mismatch = true;

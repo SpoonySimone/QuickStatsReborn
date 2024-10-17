@@ -5,6 +5,7 @@ import com.google.gson.JsonParser;
 import me.spoony.quickStatsReborn.QuickStatsReborn;
 import me.spoony.quickStatsReborn.Reference;
 import me.spoony.quickStatsReborn.config.ModConfig;
+import me.spoony.quickStatsReborn.util.HashChecker;
 import me.spoony.quickStatsReborn.util.LocrawUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;
@@ -89,7 +90,7 @@ public class ApiRequest extends Thread {
 
         /* process request from Hypixel */
         try {
-            if (uuid == null) {
+            if (uuid == null || HashChecker.mismatch) {
                 return;
             }
             String url = "" + uuid;

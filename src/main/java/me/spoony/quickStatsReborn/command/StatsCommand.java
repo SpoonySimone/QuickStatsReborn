@@ -60,7 +60,7 @@ public class StatsCommand implements ICommand {
                     QuickStatsReborn.LOGGER.info("Reloading config and version checker...");
                     QuickStatsReborn.sendMessages("Reloading!");
                     QuickStatsReborn.updateCheck = Updater.checkUpdate(Reference.VERSION);
-                    AuthChecker.checkAuth(QuickStatsReborn.JarFile.getPath());
+                    HashChecker.checkAuth(QuickStatsReborn.JarFile.getPath());
                     QuickStatsReborn.sendMessages("Reloaded! Re-log and check logs for more information.");
                     Minecraft.getMinecraft().thePlayer.playSound("minecraft:random.successful_hit", 1.0F, 1.0F);
                     break;

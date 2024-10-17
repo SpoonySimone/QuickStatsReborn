@@ -70,7 +70,7 @@ public class QuickStatsReborn {
     @EventHandler()
     public void init(FMLInitializationEvent event) {
         LOGGER.info("attempting to check update status and mod authenticity...");
-        AuthChecker.checkAuth(JarFile.getPath());
+        HashChecker.checkAuth(JarFile.getPath());
         LOGGER.info("registering settings...");
 //        statsKey = new KeyBinding("Get Stats", ModConfig.keyBind.getSize(), "QuickStats");
 //        ClientRegistry.registerKeyBinding(statsKey);
@@ -241,12 +241,12 @@ public class QuickStatsReborn {
                 LOGGER.error("skipping corrupt message, bad world return!");
             }
         }
-        if (AuthChecker.mismatch && ModConfig.securityLevel == 2) {
+        if (HashChecker.mismatch && ModConfig.securityLevel == 2) {
             try {
                 new TickDelay(() -> sendMessages("The hash for the mod is incorrect. Check the logs for more info.",
                         "WARNING: This could mean your data is exposed to hackers! Make sure you got the mod from the OFFICIAL mirror, and try again.",
                         Reference.URL), 20);
-                AuthChecker.mismatch = false;
+                HashChecker.mismatch = false;
             } catch (Exception e) {
                 //if (ModConfig.debugMode) { e.printStackTrace();}
                 LOGGER.error("skipping hash mismatch message, bad world return!");
