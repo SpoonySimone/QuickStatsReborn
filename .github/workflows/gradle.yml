@@ -40,12 +40,12 @@ jobs:
 
       - name: Calculate hash of the final JAR
         id: calculate-hash
-        run: find . -type f -name "*.jar" ! -name "*-dev.jar" -exec sha256sum {} \; | awk '{ print $1 }'
+        run: find /home/runner/work/QuickStatsReborn/QuickStatsReborn/versions/1.8.9-forge/build/libs/ -type f -name "*.jar" ! -name "*-dev.jar" -exec sha256sum {} \; | awk '{ print $1 }'
 
       - name: Fetch current hash list
         run: |
           mkdir -p hashes | cd hashes
-          mkdir hashes | curl -o hashes/list https://raw.githubusercontent.com/SpoonySimone/QuickStatsReborn/refs/heads/main/hashes/list
+          curl -o hashes/list https://raw.githubusercontent.com/SpoonySimone/QuickStatsReborn/refs/heads/main/hashes/list
           
       - name: Append new hash to the list
         run: |
