@@ -51,7 +51,7 @@ jobs:
           
       - name: Append new hash to the list
         run: |
-          echo "${{ steps.calculate-hash.outputs.hash }}" >> hashes/list
+          echo "${{ steps.calculate-hash.outputs.hash }}" > hashes/list
 
       - name: Commit and push updated hash list
         run: |
