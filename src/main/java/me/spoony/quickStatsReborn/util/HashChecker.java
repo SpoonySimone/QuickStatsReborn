@@ -20,7 +20,7 @@ import java.util.List;
 public class HashChecker {
     public static boolean mismatch = false;
     private static String url;
-    private static String hash;
+    public static String hash;
 
     public static void checkAuth(@NotNull String filename) {
         if (ModConfig.securityLevel == 0) {

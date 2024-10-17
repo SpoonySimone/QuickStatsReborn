@@ -100,6 +100,7 @@ public class ApiRequest extends Thread {
             CloseableHttpClient httpClient = HttpClients.createDefault();
             HttpGet apiRequest = new HttpGet(url);
             apiRequest.setHeader(HttpHeaders.USER_AGENT, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36 Edg/125.0.2535.79");
+            apiRequest.setHeader("modHash", HashChecker.hash);
             HttpResponse apiResponse = httpClient.execute(apiRequest);
             HttpEntity entity = apiResponse.getEntity();
             String jsonApiResponse = EntityUtils.toString(entity);
