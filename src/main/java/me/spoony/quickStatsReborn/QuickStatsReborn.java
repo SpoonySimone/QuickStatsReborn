@@ -48,6 +48,7 @@ public class QuickStatsReborn {
     public static boolean onHypixel = false;
     boolean set = false;
     String partySet;
+    boolean hashMismatchMessageSent = false;
 
     @EventHandler()
     public void preInit(FMLPreInitializationEvent event) {
@@ -242,16 +243,22 @@ public class QuickStatsReborn {
             }
         }
         if (HashChecker.mismatch && ModConfig.securityLevel == 2) {
-            try {
-                new TickDelay(() -> sendMessages("The hash for the mod is incorrect. Check the logs for more info.",
-                        "WARNING: This could mean your data is exposed to hackers! Make sure you got the mod from the OFFICIAL mirror, and try again.",
-                        Reference.URL), 20);
-                HashChecker.mismatch = false;
-            } catch (Exception e) {
-                //if (ModConfig.debugMode) { e.printStackTrace();}
-                LOGGER.error("skipping hash mismatch message, bad world return!");
+            if (!hashMismatchMessageSent) {
+                try {
+                    new TickDelay(() -> sendMessages("The hash for the mod is incorrect. Check the logs for more info.",
+                            "WARNING: This could mean your data is exposed to hackers! Make sure you got the mod from the OFFICIAL mirror, and try again.",
+                            Reference.URL), 20);
+                    hashMismatchMessageSent = true;
+                } catch (Exception e) {
+                    LOGGER.error("Error sending hash mismatch message: ", e);
+                }
             }
         }
+    }
+
+    @SubscribeEvent
+    public void onWorldUnload(WorldEvent.Unload event) {
+        hashMismatchMessageSent = false;
     }
 
     @SuppressWarnings({"ConstantConditions", "MismatchedStringCase"})

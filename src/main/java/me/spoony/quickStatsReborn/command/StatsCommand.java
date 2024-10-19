@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import static me.spoony.quickStatsReborn.QuickStatsReborn.sendMessages;
 import static net.minecraft.command.CommandBase.getListOfStringsMatchingLastWord;
 
 public class StatsCommand implements ICommand {
@@ -58,30 +59,42 @@ public class StatsCommand implements ICommand {
             switch (args[0]) {
                 case "reload":
                     QuickStatsReborn.LOGGER.info("Reloading config and version checker...");
-                    QuickStatsReborn.sendMessages("Reloading!");
+                    sendMessages("Reloading!");
                     QuickStatsReborn.updateCheck = Updater.checkUpdate(Reference.VERSION);
                     HashChecker.checkAuth(QuickStatsReborn.JarFile.getPath());
-                    QuickStatsReborn.sendMessages("Reloaded! Re-log and check logs for more information.");
+                    sendMessages("Reloaded! Re-log and check logs for more information.");
                     Minecraft.getMinecraft().thePlayer.playSound("minecraft:random.successful_hit", 1.0F, 1.0F);
                     break;
                 case "configure":
                     QuickStatsReborn.config.openGui();
                     break;
                 case "testLoc":
-                    QuickStatsReborn.sendMessages("Testing locraw function...");
+                    sendMessages("Testing locraw function...");
                     QuickStatsReborn.LocInst.send();
                     break;
                 case "test":
-                    QuickStatsReborn.sendMessages("Testing function...");
+                    sendMessages("Testing function...");
                     QuickStatsReborn.GuiInst.showGUI("SpoonySimone");
                     break;
                 case "testEntity":
                     try {
-                        QuickStatsReborn.sendMessages("Testing getEntity function...");
+                        sendMessages("Testing getEntity function...");
                         QuickStatsReborn.LOGGER.info(GetEntity.get(0).getName());
-                        QuickStatsReborn.sendMessages("entity = " + GetEntity.get(0).getName());
+                        sendMessages("entity = " + GetEntity.get(0).getName());
                     } catch (Exception e) {
                         QuickStatsReborn.LOGGER.info("entity = null");
+                    }
+                    break;
+                case "hashCheck":
+                    HashChecker.checkAuth(QuickStatsReborn.JarFile.getPath());
+                    if (HashChecker.mismatch && ModConfig.securityLevel == 2) {
+                        try {
+                            sendMessages("The hash for the mod is incorrect. Check the logs for more info.",
+                                    "WARNING: This could mean your data is exposed to hackers! Make sure you got the mod from the OFFICIAL mirror, and try again.",
+                                    Reference.URL);
+                        } catch (Exception e) {
+                            QuickStatsReborn.LOGGER.error("Error sending hash mismatch message via command: ", e);
+                        }
                     }
                     break;
                 default:
