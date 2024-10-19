@@ -24,9 +24,15 @@ public class Stats {
                 if (game.equals("MAIN") || game.equals("LIMBO") || game.equals("DEFAULT") || game.equals("LEGACY") || !ModConfig.autoGame) {
                     throw new NullPointerException("default game");
                 }
-                if (game.contains("_ULTIMATE") && game.contains("BEDWARS_")) {
-                    game = game.replace("_ULTIMATE", "");
-                }
+                if (game.contains("BEDWARS_")) {
+                    if (game.contains("_ULTIMATE")) {
+                        game = game.replace("_ULTIMATE", "");
+                    } else if (game.contains("_CASTLE")) {
+                        game = game.replace("_CASTLE", "");
+                    } else if (game.contains("_ARMED")) {
+                        game = game.replace("_ARMED", "");
+                    }
+                }                
             } catch (Exception e) {
                 //if(ModConfig.debugMode) {e.printStackTrace();}
                 QuickStatsReborn.LOGGER.debug("default game: " + ModConfig.defaultGame);
