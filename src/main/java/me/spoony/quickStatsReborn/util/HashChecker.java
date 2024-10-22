@@ -60,7 +60,7 @@ public class HashChecker {
                     throw new ReportedException(new CrashReport("[QuickStats] Mod hash mismatch. Game start halted.", new SecurityException("Hash mismatch of the mod. Game was halted startup to prevent data theft.")));
                 }
             } else {
-                QuickStatsReborn.LOGGER.info("Hashes match for version. Continuing normally.");
+                QuickStatsReborn.LOGGER.info("Local hash is contained in the ones received from remote.");
             }
         } catch (Exception e) {
             if (e instanceof MalformedURLException || e instanceof FileNotFoundException) {

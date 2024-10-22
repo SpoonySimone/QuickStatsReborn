@@ -95,6 +95,8 @@ public class StatsCommand implements ICommand {
                         } catch (Exception e) {
                             QuickStatsReborn.LOGGER.error("Error sending hash mismatch message via command: ", e);
                         }
+                    } else {
+                        sendMessages("Local hash is contained in the ones received from remote.");
                     }
                     break;
                 default:

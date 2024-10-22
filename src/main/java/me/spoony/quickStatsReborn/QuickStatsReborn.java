@@ -23,6 +23,8 @@ import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
+import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -49,6 +51,7 @@ public class QuickStatsReborn {
     boolean set = false;
     String partySet;
     boolean hashMismatchMessageSent = false;
+    boolean isRemoteWorld = false;
 
     @EventHandler()
     public void preInit(FMLPreInitializationEvent event) {
@@ -199,6 +202,7 @@ public class QuickStatsReborn {
     @SubscribeEvent
     @SuppressWarnings({"ConstantConditions", "MismatchedStringCase"})
     public void onWorldLoad(WorldEvent.Load event) {
+        isRemoteWorld = event.world.isRemote;
         try {
             if (mc.getCurrentServerData().serverIP.contains("hypixel")) {
                 if (ModConfig.debugMode) {
@@ -215,11 +219,11 @@ public class QuickStatsReborn {
         } catch (Exception e) {
             // if(ModConfig.debugMode) {e.printStackTrace();}
         }
-        if (updateCheck && ModConfig.sendUp && event.world.isRemote) {
+        if (updateCheck && ModConfig.sendUp && isRemoteWorld) {
             new TickDelay(this::sendUpdateMessage, 20);
             updateCheck = false;
         }
-        if (Reference.VERSION.contains("beta") && betaFlag && event.world.isRemote) {
+        if (Reference.VERSION.contains("beta") && betaFlag && isRemoteWorld) {
             try {
                 new TickDelay(() -> sendMessages("",
                         "Beta build has been detected (ver. " + Reference.VERSION + ")",
@@ -242,23 +246,24 @@ public class QuickStatsReborn {
                 LOGGER.error("skipping corrupt message, bad world return!");
             }
         }
-        if (HashChecker.mismatch && ModConfig.securityLevel == 2) {
-            if (!hashMismatchMessageSent) {
+        if (HashChecker.mismatch && ModConfig.securityLevel == 2 && !hashMismatchMessageSent) {
                 try {
                     new TickDelay(() -> sendMessages("The hash for the mod is incorrect. Check the logs for more info.",
                             "WARNING: This could mean your data is exposed to hackers! Make sure you got the mod from the OFFICIAL mirror, and try again.",
                             Reference.URL), 20);
                     hashMismatchMessageSent = true;
                 } catch (Exception e) {
+                    hashMismatchMessageSent = false;
                     LOGGER.error("Error sending hash mismatch message: ", e);
-                }
             }
         }
     }
 
     @SubscribeEvent
-    public void onWorldUnload(WorldEvent.Unload event) {
-        hashMismatchMessageSent = false;
+    public void onClientDisconnection(FMLNetworkEvent.ClientDisconnectionFromServerEvent event) {
+        if (hashMismatchMessageSent) {
+            hashMismatchMessageSent = false;
+        }
     }
 
     @SuppressWarnings({"ConstantConditions", "MismatchedStringCase"})

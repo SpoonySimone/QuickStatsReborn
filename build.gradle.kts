@@ -2,6 +2,9 @@
 
 import org.polyfrost.gradle.util.noServerRunConfigs
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import java.security.MessageDigest
+import java.nio.file.Files
+import java.nio.file.Paths
 
 // Adds support for kotlin, and adds the Polyfrost Gradle Toolkit
 // which we use to prepare the environment.
@@ -153,12 +156,48 @@ tasks {
             exclude("mcmod.info", "mods.toml")
         } else {
             exclude("fabric.mod.json")
-            if (project.platform.isLegacyForge) {
+            if (platform.isLegacyForge) {
                 exclude("mods.toml")
             } else {
                 exclude("mcmod.info")
             }
         }
+    }
+
+    val generateSha256 by registering {
+        doLast {
+            val outputDir = layout.buildDirectory.dir("libs").get().asFile
+            val jarFile = outputDir.listFiles { _, name ->
+                name.endsWith(".jar") && !name.contains("-dev")
+            }?.firstOrNull()
+
+            if (jarFile != null) {
+                val digest = MessageDigest.getInstance("SHA-256")
+                val hashBytes = digest.digest(jarFile.readBytes())
+                val sha256Hash = hashBytes.joinToString("") { "%02x".format(it) }
+
+                val hashFile = file("../../hashes/list")
+                if (!hashFile.exists()) {
+                    hashFile.parentFile.mkdirs()
+                    hashFile.createNewFile()
+                }
+
+                val currentHashes = hashFile.readLines()
+                if (!currentHashes.contains(sha256Hash)) {
+                    hashFile.appendText("$sha256Hash\n")
+                    println("Hash appended to hashes/list")
+                } else {
+                    println("Hash already exists, not appending.")
+                }
+            } else {
+                println("No JAR file found to calculate hash.")
+            }
+        }
+    }
+    val hashGen by registering {
+        group = "build"  // Set the group to 'build' so it appears with other build tasks
+        description = "Generates SHA-256 hash for the final JAR file without '-dev' suffix."
+        finalizedBy(generateSha256) // Finalizes the hash generation after build tasks
     }
 
     // Configures our shadow/shade configuration, so we can
