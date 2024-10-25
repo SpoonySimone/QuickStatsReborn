@@ -64,15 +64,13 @@ public class ApiRequest extends Thread {
             uuid = jsonObject.get("id").getAsString();
         } catch (IllegalStateException e) {
             mc.thePlayer.addChatMessage(new ChatComponentText(
-                    Reference.COLOR + "[QuickStats] Player not found: " + username));
+                    Reference.COLOR + "[QuickStatsReborn] Player not found: " + username));
             noUser = true;
             return;
         } catch (Exception e) {
             if (ModConfig.debugMode) {
                 e.printStackTrace();
             }
-//            mc.thePlayer.addChatMessage(new ChatComponentText(Reference.COLOR
-//                    + "[QuickStats] Couldn't fetch player's UUID because user is nicked."));
             nick = true;
         }
         /* get head texture */
@@ -154,7 +152,7 @@ public class ApiRequest extends Thread {
                 QuickStatsReborn.LOGGER.info("successfully processed all data in " + endTime + "ms");
             } else {
                 mc.thePlayer.addChatMessage(new ChatComponentText(Reference.COLOR
-                        + "[QuickStats] The Hypixel API didn't process the request properly. Try again."));
+                        + "[QuickStatsReborn] The Hypixel API didn't process the request properly. Try again."));
                 generalError = true;
                 QuickStatsReborn.LOGGER.error("error occurred when building after API request, closing");
             }
@@ -162,16 +160,16 @@ public class ApiRequest extends Thread {
         } catch (IOException e) {
             if (e.getMessage().contains("504 for URL")) {
                 mc.thePlayer.addChatMessage(new ChatComponentText(Reference.COLOR
-                        + "[QuickStats] failed to contact the Hypixel API. Request timed out!"));
+                        + "[QuickStatsReborn] failed to contact the Hypixel API. Request timed out!"));
                 timeOut = true;
             } else {
                 if (e.getMessage().contains("429 for URL")) {
                     mc.thePlayer.addChatMessage(new ChatComponentText(Reference.COLOR
-                            + "[QuickStats] the Hypixel API didn't respond as you are sending requests too fast! Slow down!"));
+                            + "[QuickStatsReborn] the Hypixel API didn't respond as you are sending requests too fast! Slow down!"));
                     slowDown = true;
                 } else {
                     mc.thePlayer.addChatMessage(new ChatComponentText(Reference.COLOR
-                            + "[QuickStats] failed to contact Hypixel API. This is usually due to an invalid API key."));
+                            + "[QuickStatsReborn] failed to contact Hypixel API. This is usually due to an invalid API key."));
                     if (ModConfig.debugMode) {
                         e.printStackTrace();
                     }
@@ -184,7 +182,7 @@ public class ApiRequest extends Thread {
                 e.printStackTrace();
             }
             mc.thePlayer.addChatMessage(new ChatComponentText(Reference.COLOR
-                    + "[QuickStats] an unexpected error occurred. Check logs for more info."));
+                    + "[QuickStatsReborn] an unexpected error occurred. Check logs for more info."));
             generalError = true;
         }
     }

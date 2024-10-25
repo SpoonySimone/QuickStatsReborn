@@ -138,7 +138,7 @@ public class ModConfig extends Config {
         CrashReport report = CrashReport.makeCrashReport(new Throwable() {
             @Override
             public String getMessage() {
-                return "[QuickStats] Manually initiated crash: Cleaning configuration file. THIS IS NOT AN ERROR";
+                return "[QuickStatsReborn] Manually initiated crash: Cleaning configuration file. THIS IS NOT AN ERROR";
             }
 
             @Override

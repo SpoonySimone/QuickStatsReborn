@@ -23,7 +23,6 @@ import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -38,7 +37,6 @@ public class QuickStatsReborn {
     public static QuickStatsReborn instance;
     public static ModConfig config;
     private static final Minecraft mc = Minecraft.getMinecraft();
-//    private KeyBinding statsKey;
     public static final Logger LOGGER = LogManager.getLogger(Reference.NAME);
     public static File JarFile;
     public static boolean updateCheck;

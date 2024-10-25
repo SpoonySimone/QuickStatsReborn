@@ -57,7 +57,7 @@ public class HashChecker {
                 QuickStatsReborn.LOGGER.error("Make sure that you downloaded the mod from the OFFICIAL mirror, and try again. " + Reference.URL);
                 mismatch = true;
                 if (ModConfig.securityLevel == 3) {
-                    throw new ReportedException(new CrashReport("[QuickStats] Mod hash mismatch. Game start halted.", new SecurityException("Hash mismatch of the mod. Game was halted startup to prevent data theft.")));
+                    throw new ReportedException(new CrashReport("[QuickStatsReborn] Mod hash mismatch. Game start halted.", new SecurityException("Hash mismatch of the mod. Game was halted startup to prevent data theft.")));
                 }
             } else {
                 QuickStatsReborn.LOGGER.info("Local hash is contained in the ones received from remote.");
