@@ -30,7 +30,6 @@ public class StatsCommand implements ICommand {
         aliases = new ArrayList<>();
         aliases.add("quickstatsreborn");
         aliases.add("qsr");
-        aliases.add("qs");
     }
 
     @Override

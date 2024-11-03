@@ -250,7 +250,9 @@ public class QuickStatsReborn {
                             "WARNING: This could mean your data is exposed to hackers! Make sure you got the mod from the OFFICIAL mirror, and try again.",
                             Reference.URL), 20);
                     hashMismatchMessageSent = true;
+                    ModConfig.modEnabled = false;
                 } catch (Exception e) {
+                    ModConfig.modEnabled = true;
                     hashMismatchMessageSent = false;
                     LOGGER.error("Error sending hash mismatch message: ", e);
             }
