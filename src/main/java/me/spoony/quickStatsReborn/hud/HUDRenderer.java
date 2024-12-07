@@ -135,7 +135,6 @@ public class HUDRenderer extends Gui {
 
         if (QuickStatsReborn.locraw) {
             QuickStatsReborn.locraw = false;
-            QuickStatsReborn.LocInst.send();
         }
         api = new ApiRequest(username);
         if (ModConfig.doSound) {

@@ -68,8 +68,11 @@ public class StatsCommand implements ICommand {
                     QuickStatsReborn.config.openGui();
                     break;
                 case "testLoc":
-                    sendMessages("Testing locraw function...");
-                    QuickStatsReborn.LocInst.send();
+                    if (LocrawRetriever.gameType == null) {
+                        mc.thePlayer.addChatMessage(new ChatComponentText(Reference.COLOR + "No gametype was detected"));
+                    } else {
+                        mc.thePlayer.addChatMessage(new ChatComponentText(Reference.COLOR + LocrawRetriever.gameType));
+                    }
                     break;
                 case "test":
                     sendMessages("Testing function...");
@@ -110,31 +113,31 @@ public class StatsCommand implements ICommand {
                                 case "BEDWARS":
                                 case "BW":
                                 case "BEDWAR":
-                                    LocrawUtil.gameType = "BEDWARS";
+                                    LocrawRetriever.gameType = "BEDWARS";
                                     break;
                                 case "SW":
                                 case "SKYWARS":
                                 case "SKYWAR":
-                                    LocrawUtil.gameType = "SKYWARS";
+                                    LocrawRetriever.gameType = "SKYWARS";
                                     break;
                                 case "QC":
                                 case "QK":
                                 case "QUAKE":
-                                    LocrawUtil.gameType = "solo";
+                                    LocrawRetriever.gameType = "solo";
                                     break;
                                 case "DUEL":
                                 case "DUELS":
                                 case "DL":
-                                    LocrawUtil.gameType = "DUELS";
+                                    LocrawRetriever.gameType = "DUELS";
                                     break;
                                 case "WOOL":
                                 case "WOOLGAMES":
                                 case "WOOL_GAMES":
                                 case "WOOL_WARS":
-                                    LocrawUtil.gameType = "WOOL_GAMES";
+                                    LocrawRetriever.gameType = "WOOL_GAMES";
                                     break;
                                 default:
-                                    LocrawUtil.gameType = args[1].toUpperCase();
+                                    LocrawRetriever.gameType = args[1].toUpperCase();
                                     break;
                             }
                         }

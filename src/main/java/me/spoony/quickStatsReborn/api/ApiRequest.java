@@ -6,7 +6,7 @@ import me.spoony.quickStatsReborn.QuickStatsReborn;
 import me.spoony.quickStatsReborn.Reference;
 import me.spoony.quickStatsReborn.config.ModConfig;
 import me.spoony.quickStatsReborn.util.HashChecker;
-import me.spoony.quickStatsReborn.util.LocrawUtil;
+import me.spoony.quickStatsReborn.util.LocrawRetriever;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;
 
@@ -147,7 +147,7 @@ public class ApiRequest extends Thread {
 
                 rootStats = js2.get("stats").getAsJsonObject();
                 achievementStats = js2.get("achievements").getAsJsonObject();
-                result = Stats.getStats(rootStats, achievementStats, LocrawUtil.gameType);
+                result = Stats.getStats(rootStats, achievementStats, LocrawRetriever.gameType);
                 endTime = (int) System.currentTimeMillis() - startTime;
                 QuickStatsReborn.LOGGER.info("successfully processed all data in " + endTime + "ms");
             } else {

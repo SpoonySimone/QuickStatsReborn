@@ -31,9 +31,11 @@ import org.lwjgl.input.Keyboard;
 
 import java.io.File;
 
-@Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION)
+import static me.spoony.quickStatsReborn.Reference.MODID;
+
+@Mod(modid = MODID, name = Reference.NAME, version = Reference.VERSION)
 public class QuickStatsReborn {
-    @Mod.Instance("@ID@") // variables and things
+    @Mod.Instance(MODID) // variables and things
     public static QuickStatsReborn instance;
     public static ModConfig config;
     private static final Minecraft mc = Minecraft.getMinecraft();
@@ -43,7 +45,7 @@ public class QuickStatsReborn {
     public static boolean betaFlag = true;
     public static boolean locraw = false;
     public static boolean corrupt = false;
-    public static LocrawUtil LocInst;
+    public static LocrawRetriever LocInst;
     public static HUDRenderer GuiInst;
     public static boolean onHypixel = false;
     boolean set = false;
@@ -74,11 +76,9 @@ public class QuickStatsReborn {
         LOGGER.info("attempting to check update status and mod authenticity...");
         HashChecker.checkAuth(JarFile.getPath());
         LOGGER.info("registering settings...");
-//        statsKey = new KeyBinding("Get Stats", ModConfig.keyBind.getSize(), "QuickStats");
-//        ClientRegistry.registerKeyBinding(statsKey);
         MinecraftForge.EVENT_BUS.register(this);
         ClientCommandHandler.instance.registerCommand(new StatsCommand());
-        LocInst = new LocrawUtil();
+        LocInst = new LocrawRetriever();
         GuiInst = new HUDRenderer();
         locraw = true;
         LOGGER.debug(instance.toString());
@@ -121,9 +121,8 @@ public class QuickStatsReborn {
             if (ModConfig.doPartyDetection) {
                 if (QuickStatsReborn.locraw) {
                     QuickStatsReborn.locraw = false;
-                    LocInst.send();
                 }
-                if (LocrawUtil.lobby) {
+                if (LocrawRetriever.lobby) {
                     try {
                         if (event.message.getUnformattedText().contains("Party ") || event.message.getUnformattedText().contains("lobby!")) {
                             return;
@@ -208,10 +207,10 @@ public class QuickStatsReborn {
                 }
                 locraw = true;
                 onHypixel = true;
-                LocrawUtil.lobby = false;
+                LocrawRetriever.lobby = false;
             } else {
                 onHypixel = false;
-                LocrawUtil.lobby = false;
+                LocrawRetriever.lobby = false;
                 locraw = false;
             }
         } catch (Exception e) {
@@ -304,5 +303,4 @@ public class QuickStatsReborn {
             LOGGER.error("skipping update message, bad world return!");
         }
     }
-
 }

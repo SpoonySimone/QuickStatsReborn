@@ -3,6 +3,7 @@ package me.spoony.quickStatsReborn.api;
 import com.google.gson.JsonObject;
 import me.spoony.quickStatsReborn.QuickStatsReborn;
 import me.spoony.quickStatsReborn.config.ModConfig;
+import me.spoony.quickStatsReborn.util.LocrawRetriever;
 import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
@@ -21,7 +22,7 @@ public class Stats {
                     game = game.substring(1, game.length() - 1); // fix for too many speech marks
                 }
                 // System.out.println(game);
-                if (game.equals("MAIN") || game.equals("LIMBO") || game.equals("DEFAULT") || game.equals("LEGACY") || !ModConfig.autoGame) {
+                if (game.equals("MAIN") || game.equals("LIMBO") || game.equals("DEFAULT") || game.equals("LEGACY") || !ModConfig.autoGame || LocrawRetriever.lobby) {
                     throw new NullPointerException("default game");
                 }
                 if (game.contains("BEDWARS_")) {
