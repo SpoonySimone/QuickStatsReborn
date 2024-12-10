@@ -22,7 +22,7 @@ public class Stats {
                     game = game.substring(1, game.length() - 1); // fix for too many speech marks
                 }
                 // System.out.println(game);
-                if (game.equals("MAIN") || game.equals("LIMBO") || game.equals("DEFAULT") || game.equals("LEGACY") || !ModConfig.autoGame || LocrawRetriever.lobby) {
+                if (game.equals("MAIN") || game.equals("LIMBO") || game.equals("DEFAULT") || game.equals("LEGACY") || !ModConfig.autoGame) {
                     throw new NullPointerException("default game");
                 }
                 if (game.contains("BEDWARS_")) {

@@ -12,6 +12,7 @@ public class LocrawRetriever {
     public static LocrawInfo locraw;
     public static String gameType;
     public static boolean lobby = false;
+    public static String formattedGameType;
 
     public LocrawRetriever() {
         EventManager.INSTANCE.register(this);
@@ -23,8 +24,9 @@ public class LocrawRetriever {
 
         try {
             if (locraw != null) {
-                gameType = locraw.getGameMode();
-                if (gameType.equalsIgnoreCase("lobby")) {
+                gameType = locraw.getRawGameType();
+                formattedGameType = locraw.getGameMode();
+                if (formattedGameType.equalsIgnoreCase("lobby")) {
                     lobby = true;
                     if (ModConfig.debugMode) {
                         QuickStatsReborn.LOGGER.info("detected this as a lobby");
