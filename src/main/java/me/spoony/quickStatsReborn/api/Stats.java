@@ -111,7 +111,7 @@ public class Stats {
                         returnStats.add("Level: \u00A79" + getNullProtectedString("bedwars_level", acStats) + "✫"
                                 + "\u00A7r       Game: \u00A72BedWars");
                         returnStats.add("Wins: \u00A75" + getFormattedInt("bedwars_wins", acStats)
-                                + "\u00A7r      Coins: \u00A76" + getFormattedInt("coins", bwStats));
+                                + "\u00A7r      Tokens: \u00A72" + getFormattedInt("coins", bwStats));
                         returnStats.add("Kills: " + getFormattedInt("kills_bedwars", bwStats) + "     Deaths: "
                                 + getFormattedInt("deaths_bedwars", bwStats));
                         returnStats.add("Final Kills: " + getFormattedInt("final_kills_bedwars", bwStats)
@@ -284,7 +284,7 @@ public class Stats {
                     + gamemodeFormatted);
             if (ModConfig.compactMode) {
                 result.add("W: \u00A75" + getFormattedInt(gamemode + "_wins_bedwars", bwStats)
-                        + "\u00A7r      Coins: \u00A76" + getFormattedInt("coins", bwStats));
+                        + "\u00A7r      Tokens: \u00A72" + getFormattedInt("coins", bwStats));
                 result.add("K: " + getFormattedInt(gamemode + "_kills_bedwars", bwStats) + "     D: "
                         + getFormattedInt(gamemode + "_deaths_bedwars", bwStats));
                 result.add("FK: " + getFormattedInt(gamemode + "_final_kills_bedwars", bwStats)
@@ -296,7 +296,7 @@ public class Stats {
                 result.add("FK/D: " + kdString + "      W/L: " + wlString);
             } else {
                 result.add("Wins: \u00A75" + getFormattedInt(gamemode + "_wins_bedwars", bwStats)
-                        + "\u00A7r      Coins: \u00A76" + getFormattedInt("coins", bwStats));
+                        + "\u00A7r      Tokens: \u00A72" + getFormattedInt("coins", bwStats));
                 result.add("Kills: " + getFormattedInt(gamemode + "_kills_bedwars", bwStats) + "     Deaths: "
                         + getFormattedInt(gamemode + "_deaths_bedwars", bwStats));
                 result.add("Final Kills: " + getFormattedInt(gamemode + "_final_kills_bedwars", bwStats)
@@ -360,7 +360,7 @@ public class Stats {
             } catch (Exception e) {
                 winstreak = "0";
             }
-            result.add("Best Winstreak: \u00A75" + winstreak + "\u00A7r     Coins: \u00A76"
+            result.add("Best Winstreak: \u00A75" + winstreak + "\u00A7r     Tokens: \u00A72"
                     + getFormattedInt("coins", duelStats));
             if (gamemode.contains("bridge")) { // bridge is different for some reason... why
                 result.add("Kills: " + getFormattedInt(gamemode + "_bridge_kills", duelStats) + "           Deaths: "
@@ -399,7 +399,7 @@ public class Stats {
             result.add("Level: \u00A79" + calcWoolLevel(woolGames.getAsJsonObject("progression").get("experience").getAsInt()) + "❤"
                     + "\u00A7r       Game: " + gamemodeFormatted);
             result.add("Wins: \u00A75" + (woolGames.getAsJsonObject("wool_wars").getAsJsonObject("stats").get("wins").getAsInt())
-                    + "\u00A7r      Coins: \u00A76" + (woolGames.get("coins").getAsInt()));
+                    + "\u00A7r      Tokens: \u00A72" + (woolGames.get("coins").getAsInt()));
             result.add("Kills: " + getFormattedInt("woolgames_wool_kills", woolGames) + "     Deaths: "
                     + getFormattedInt("deaths", woolGames));
             String kdString = ratioCalc(getNullProtectedFloat("kills", woolGames),
