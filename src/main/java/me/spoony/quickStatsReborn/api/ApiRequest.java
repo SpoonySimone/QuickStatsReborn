@@ -12,11 +12,9 @@ import net.minecraft.util.ChatComponentText;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URL;
+import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import org.apache.http.HttpHeaders;
@@ -62,6 +60,9 @@ public class ApiRequest extends Thread {
         try {
             JsonObject jsonObject = buildJson("https://api.mojang.com/users/profiles/minecraft/" + username);
             uuid = jsonObject.get("id").getAsString();
+        } catch (FileNotFoundException e) {
+            nick = true;
+            uuid = "606e2ff0ed7748429d6ce1d3321c7838"; //MHF_Question uuid so that head shows up as a question mark
         } catch (IllegalStateException e) {
             mc.thePlayer.addChatMessage(new ChatComponentText(
                     Reference.COLOR + "[QuickStatsReborn] Player not found: " + username));
@@ -71,24 +72,42 @@ public class ApiRequest extends Thread {
             if (ModConfig.debugMode) {
                 e.printStackTrace();
             }
-            nick = true;
         }
         /* get head texture */
         try {
+            URL url;
             if (ModConfig.avatarHead) {
-                image = ImageIO.read(new URL("https://cravatar.eu/helmhead/" + uuid));
+                url = new URL("https://crafatar.com/renders/head/" + uuid + "?scale=7&default=MHF_Steve");
             } else {
-                image = ImageIO.read(new URL("https://cravatar.eu/helmavatar/" + uuid));
+                url = new URL("https://crafatar.com/avatars/" + uuid + "?overlay&default=MHF_Steve");
+                QuickStatsReborn.LOGGER.info(url);
             }
+
+            URLConnection connection = url.openConnection();
+            connection.setConnectTimeout(2000);
+            connection.setReadTimeout(2000);
+            image = ImageIO.read(connection.getInputStream());
         } catch (Exception e) {
-            if (ModConfig.debugMode) {
-                e.printStackTrace();
+            // if timeout or any other error occurs, fallback to cravatar
+            try {
+                if (ModConfig.avatarHead) {
+                    image = ImageIO.read(new URL("https://cravatar.eu/helmhead/" + uuid));
+                } else {
+                    image = ImageIO.read(new URL("https://cravatar.eu/helmavatar/" + uuid));
+                }
+                if (ModConfig.debugMode) {
+                    QuickStatsReborn.LOGGER.warn("Falling back to Cravatar as Crafatar failed to load under reasonable time.");
+                }
+            } catch (Exception e2) {
+                if (ModConfig.debugMode) {
+                    e2.printStackTrace();
+                }
             }
         }
 
         /* process request from Hypixel */
         try {
-            if (uuid == null || HashChecker.mismatch) {
+            if (uuid == null || HashChecker.mismatch || nick) {
                 return;
             }
             String url = "" + uuid;
