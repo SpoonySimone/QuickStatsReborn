@@ -77,23 +77,23 @@ public class ApiRequest extends Thread {
         try {
             URL url;
             if (ModConfig.avatarHead) {
-                url = new URL("https://crafatar.com/renders/head/" + uuid + "?scale=7&default=MHF_Steve");
+                url = new URL("https://cravatar.eu/helmhead/" + uuid);
             } else {
-                url = new URL("https://crafatar.com/avatars/" + uuid + "?overlay&default=MHF_Steve");
+                url = new URL("https://cravatar.eu/helmavatar/" + uuid);
                 QuickStatsReborn.LOGGER.info(url);
             }
 
             URLConnection connection = url.openConnection();
-            connection.setConnectTimeout(2000);
-            connection.setReadTimeout(2000);
+            connection.setConnectTimeout(1000);
+            connection.setReadTimeout(1000);
             image = ImageIO.read(connection.getInputStream());
         } catch (Exception e) {
             // if timeout or any other error occurs, fallback to cravatar
             try {
                 if (ModConfig.avatarHead) {
-                    image = ImageIO.read(new URL("https://cravatar.eu/helmhead/" + uuid));
+                    image = ImageIO.read(new URL("https://crafatar.com/renders/head/" + uuid + "?scale=7&default=MHF_Steve"));
                 } else {
-                    image = ImageIO.read(new URL("https://cravatar.eu/helmavatar/" + uuid));
+                    image = ImageIO.read(new URL("https://crafatar.com/avatars/" + uuid + "?overlay&default=MHF_Steve"));
                 }
                 if (ModConfig.debugMode) {
                     QuickStatsReborn.LOGGER.warn("Falling back to Cravatar as Crafatar failed to load under reasonable time.");
@@ -107,7 +107,7 @@ public class ApiRequest extends Thread {
 
         /* process request from Hypixel */
         try {
-            if (uuid == null || HashChecker.mismatch || nick) {
+            if (uuid == null || nick || HashChecker.mismatch) {
                 return;
             }
             String url = "" + uuid;
