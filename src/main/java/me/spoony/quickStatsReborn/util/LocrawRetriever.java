@@ -22,22 +22,23 @@ public class LocrawRetriever {
     private void onLocraw(LocrawEvent event) {
         LocrawInfo locraw = LocrawUtil.INSTANCE.getLocrawInfo();
 
+        if (!LocrawUtil.INSTANCE.isInGame() || locraw.getGameMode().equalsIgnoreCase("lobby")) {
+            lobby = true;
+            if (ModConfig.debugMode) {
+                QuickStatsReborn.LOGGER.info("detected this as a lobby");
+            }
+            gameType = locraw.getRawGameType(); // this lets us understand the gamemode of the lobby you're in
+            return;
+        } else {
+            lobby = false;
+        }
+
         try {
-            if (locraw != null) {
-                gameType = locraw.getRawGameType();
-                formattedGameType = locraw.getGameMode();
-                if (formattedGameType.equalsIgnoreCase("lobby")) {
-                    lobby = true;
-                    if (ModConfig.debugMode) {
-                        QuickStatsReborn.LOGGER.info("detected this as a lobby");
-                    }
-                } else {
-                    lobby = false;
-                }
+            if (LocrawUtil.INSTANCE.isInGame() && locraw != null) {
+                gameType = locraw.getGameMode();
             } else {
                 gameType = "DEFAULT";
             }
-
 
             if (ModConfig.debugMode) {
                 QuickStatsReborn.LOGGER.info(gameType);
