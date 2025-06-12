@@ -69,6 +69,28 @@ public class ApiRequest extends Thread {
             noUser = true;
             return;
         } catch (Exception e) {
+            // fallback to old api
+            if (ModConfig.debugMode) {
+                QuickStatsReborn.LOGGER.warn("Falling back to api.minecraftservices.com as mojang.com API seems to be down");
+            }
+            try {
+                JsonObject fallbackJsonObject = buildJson("https://api.minecraftservices.com/minecraft/profile/lookup/name/" + username);
+                uuid = fallbackJsonObject.get("id").getAsString();
+            } catch (FileNotFoundException fallbackE) {
+                nick = true;
+                uuid = "606e2ff0ed7748429d6ce1d3321c7838"; //MHF_Question uuid so that head shows up as a question mark
+            } catch (IllegalStateException fallbackE) {
+                mc.thePlayer.addChatMessage(new ChatComponentText(
+                        Reference.COLOR + "[QuickStatsReborn] Player not found: " + username));
+                noUser = true;
+                return;
+            } catch (Exception fallbackE) {
+                if (ModConfig.debugMode) {
+                    e.printStackTrace();
+                    fallbackE.printStackTrace();
+                }
+            }
+            
             if (ModConfig.debugMode) {
                 e.printStackTrace();
             }
