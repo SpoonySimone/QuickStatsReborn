@@ -1,15 +1,12 @@
 package me.spoony.quickStatsReborn.config;
 
 import cc.polyfrost.oneconfig.config.annotations.*;
-import cc.polyfrost.oneconfig.config.annotations.Number;
 import cc.polyfrost.oneconfig.config.annotations.Button;
 import cc.polyfrost.oneconfig.config.annotations.Color;
-import cc.polyfrost.oneconfig.config.annotations.HUD;
 import cc.polyfrost.oneconfig.config.core.OneColor;
 import cc.polyfrost.oneconfig.config.core.OneKeyBind;
 import cc.polyfrost.oneconfig.libs.universal.UKeyboard;
 import me.spoony.quickStatsReborn.QuickStatsReborn;
-import me.spoony.quickStatsReborn.hud.HUDRenderer;
 import me.spoony.quickStatsReborn.util.TickDelay;
 import cc.polyfrost.oneconfig.config.Config;
 import cc.polyfrost.oneconfig.config.data.Mod;
@@ -17,8 +14,6 @@ import cc.polyfrost.oneconfig.config.data.ModType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.util.ReportedException;
-import net.minecraftforge.fml.common.gameevent.InputEvent;
-import org.lwjgl.input.Keyboard;
 
 import java.io.FileWriter;
 import java.io.PrintStream;
@@ -338,7 +333,7 @@ public class ModConfig extends Config {
     private static final Minecraft mc = Minecraft.getMinecraft();
 
     public ModConfig() {
-        super(new Mod("QuickStatsReborn", ModType.HYPIXEL, "/icon.svg"), "quickstatsreborn.json");
+        super(new Mod("QuickStatsReborn", ModType.HYPIXEL, "/qsr_icon.svg"), "quickstatsreborn.json");
         initialize();
         registerKeyBind(keyBind, () -> QuickStatsReborn.instance.onKeyPress());
         save();
